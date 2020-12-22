@@ -88,7 +88,6 @@ export class CrudusersComponent implements OnInit {
       genero: ['', Validators.required],
       fechanacimiento: ['', [Validators.required]],
       rol: ['', Validators.required],
-      carrera:['', Validators.required],
       usuarioVerificado: ['', Validators.required],
       password: ['', [Validators.required, Validators.pattern('(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,}$')]],
       password1: ['', [Validators.required]],
@@ -99,7 +98,10 @@ export class CrudusersComponent implements OnInit {
     );
   }
   async register(forma: FormGroup) {
+    
     if (this.forma.invalid) {
+      console.log('es invalido');
+      console.log(forma);
       return Object.values(this.forma.controls).forEach(control => {
         if (control instanceof FormGroup) {
           Object.values(control.controls).forEach(control => control.markAsTouched());
@@ -109,8 +111,8 @@ export class CrudusersComponent implements OnInit {
       });
     } else {
       try {
-        
-        var $crea=this.auth.getUsuariosCorreo(this.usuario.email).subscribe(res=>{
+         
+         var $crea=this.auth.getUsuariosCorreo(this.usuario.email).subscribe(res=>{
           if(res){
             
             if(res.length==0){

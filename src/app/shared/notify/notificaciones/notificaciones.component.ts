@@ -10,7 +10,7 @@ import { NotificacionService } from 'src/app/services/notificacion.service';
   styleUrls: ['./notificaciones.component.css']
 })
 export class NotificacionesComponent implements OnInit {
- // @Input()  uid:string;
+
   @Input()  user:Usuario;
   @Input()  id:string;
   @Output() canti = new EventEmitter<number>();
@@ -35,8 +35,7 @@ export class NotificacionesComponent implements OnInit {
           this.cantidadNoti=resp.length;
           this.valorClass=this.classes(resp.length);
           this.canti.emit(this.cantidadNoti);
-          console.log(this.cantidadNoti);
-          console.log(resp);
+         
         }else{
           this.cantidadNoti=0;
           this.canti.emit(this.cantidadNoti);
@@ -45,7 +44,7 @@ export class NotificacionesComponent implements OnInit {
       }
     
     })
-    console.log(this.user);
+    
   }
   classes(num:number){
     if(num==1){
