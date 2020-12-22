@@ -1,0 +1,54 @@
+<ng-container *ngIf="valor">
+    <ng-container *ngIf="!usuario.usuarioVerificado">
+        <div class="denegadoHome">
+            <div class="alert alert-danger denegadoAlert" role="alert">
+                Su cuenta aun no esta verificada
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2F.png?alt=media&token=b8ddcc27-d139-476e-bf40-7ee8094c277c" class="denegado" alt="">
+            <div class="w-100">
+                <button type="button" class="btn btn-danger w-100" [routerLink]="['./../../perfil', usuario.uid]">Click aquí para solicitar acceso</button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="usuario.usuarioVerificado">
+        <div id="imprimir">
+            <h1 class="text-center titulo">Estadísticas de Noticias</h1>
+            <form [formGroup]="firstFormGroup" (ngSubmit)="onUpload(firstFormGroup)" #formone="ngForm">
+                <div class="busqueda">
+                    <div class="fechas">
+                        <mat-form-field appearance="outline" class="tama w-50">
+                            <mat-label>Fecha inicial</mat-label>
+                            <input matInput [matDatepicker]="picker" formControlName="start" [errorStateMatcher]="matcher" required>
+                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                            <mat-datepicker #picker></mat-datepicker>
+                            <mat-error *ngIf="firstFormGroup.controls['start'].errors?.required">
+                                Este campo es requerido
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-form-field appearance="outline" class=" tama w-50">
+                            <mat-label>Fecha final</mat-label>
+                            <input matInput [matDatepicker]="picker1" formControlName="end">
+                            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                            <mat-datepicker #picker1></mat-datepicker>
+                            <mat-error *ngIf="firstFormGroup.controls['end'].errors?.mayor">
+                                La fecha final debe ser menor o igual a la fecha inicial
+                            </mat-error>
+                        </mat-form-field>
+                    </div>
+                    <div>
+                        <button type="button" class="btn btn-success crear w-20 " (click)="formone.ngSubmit.emit()"><i class="far fa-chart-bar"></i> Crear</button>
+                    </div>
+                </div>
+            </form>
+            <div class="centrar">
+                <button type="button" (click)="download()" *ngIf="descargar" class="btn btn-primary">Pdf</button>
+            </div>
+            <div *ngIf="chart">
+                <canvas id="canvas" width="800" height="250">{{chart}}</canvas>
+            </div>
+            <div *ngIf="chart2">
+                <canvas id="ctx" width="800" height="250">{{chart2}}</canvas>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>

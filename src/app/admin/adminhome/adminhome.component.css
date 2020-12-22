@@ -1,0 +1,33 @@
+mat-grid-list {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+}
+
+mat-grid-tile {
+    margin: 0;
+    padding: 0;
+}
+
+mat-toolbar {
+    margin: 0;
+    height: 100%;
+}
+
+.valor {
+    margin: 0;
+    height: 100% !important;
+    width: 100% !important;
+    padding: 0;
+}
+
+
+/*
+router-outlet{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items:center;
+
+}
+*/

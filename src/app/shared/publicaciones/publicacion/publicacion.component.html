@@ -1,0 +1,214 @@
+<div class="contenidos">
+    <mat-horizontal-stepper #stepper>
+        <form [formGroup]="firstFormGroup" (ngSubmit)="onUpload(firstFormGroup)" #formone="ngForm">
+            <mat-step [stepControl]="firstFormGroup">
+                <div class="alert alert-success" *ngIf="guardar" role="alert">
+                    La publicación se ha guardado con éxito
+                </div>
+                <div class="alert alert-danger" *ngIf="fail" role="alert">
+                    Hubo errores en la carga de datos por favor intentelo de nuevo
+                </div>
+                <ng-template matStepLabel>Llena {{tipo}}</ng-template>
+                <mat-form-field appearance="outline" *ngIf="user.rol=='secretaria'" class="w-100">
+
+                    <mat-label>Elegir perfil:</mat-label>
+                    <mat-select formControlName="autorNamePost" [errorStateMatcher]="matcher" required>
+                        <mat-option *ngFor="let perfil of secretaria" [value]="perfil">{{perfil}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="firstFormGroup.controls['autorNamePost'].errors?.required">
+                        {{errors.perfilPost}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Publicar para:</mat-label>
+                    <mat-select formControlName="nameGroupPost" [errorStateMatcher]="matcher" required>
+                        <mat-option *ngFor="let publi of publicar; let i=index" [value]="i">{{publi}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="firstFormGroup.controls['nameGroupPost'].errors?.required">
+                        {{errors.opcion}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="tipo=='solicitud'" class="w-100">
+                    <mat-label>Categoria:</mat-label>
+                    <mat-select formControlName="categoriaPost" [errorStateMatcher]="matcher" required>
+                        <mat-option *ngFor="let solicitud of solicitudes" [value]="solicitud">{{solicitud}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="firstFormGroup.controls['categoriaPost'].errors?.required">
+                        {{errors.categoriaPost}} {{tipo}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="tipo =='noticia'" class="w-100">
+                    <mat-label>Categoria {{tipo}} </mat-label>
+                    <mat-select formControlName="categoriaPost" [errorStateMatcher]="matcher" required>
+                        <mat-option *ngFor="let item of categorias" [value]="item">{{item}}</mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="firstFormGroup.controls['categoriaPost'].errors?.required">
+                        {{errors.categoriaPost}} {{tipo}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Titulo {{tipo}}</mat-label>
+                    <input matInput placeholder="titulo" formControlName="tituloPost" [errorStateMatcher]="matcher" maxlength="40" required>
+                    <mat-error *ngIf="firstFormGroup.controls['tituloPost'].errors?.required">
+                        {{errors.titulopost}} {{tipo}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Descripción de {{tipo}}</mat-label>
+                    <textarea matInput rows="6" placeholder="Descripción del evento" formControlName="descripcionPost" [errorStateMatcher]="matcher" style="resize: none" required></textarea>
+                    <mat-error *ngIf="firstFormGroup.controls['descripcionPost'].errors?.required">
+                        {{errors.descripcionPost}} {{tipo}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="tipo =='evento' || tipo =='solicitud'" class="w-100">
+                    <mat-label>Número de contacto</mat-label>
+                    <input matInput formControlName="telPost" placeholder="Número de contacto" [errorStateMatcher]="matcher" maxlength="10">
+                    <mat-error *ngIf="firstFormGroup.controls['telPost'].errors?.pattern">
+                        {{errors.numeroPost}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="tipo =='evento' || tipo =='solicitud'" class="w-100">
+                    <mat-label>Lugar del {{tipo}}</mat-label>
+                    <input matInput placeholder="Lugar" formControlName="lugarPost">
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="tipo =='evento'" class="contorno-select w-50">
+                    <mat-label>Fecha evento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaInicioPost" [errorStateMatcher]="matcher" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="firstFormGroup.controls['fechaInicioPost'].errors?.required">
+                        {{errors.fechaPost}} {{tipo}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="tipo =='evento'" class="contorno-select w-50">
+                    <mat-label>Fecha final del evento</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="fechaFinPost">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <mat-error *ngIf="firstFormGroup.controls['fechaFinPost'].errors?.mayor">
+                        La fecha final debe ser mayor o igual a la fecha inicial
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="tipo =='evento'" class="w-50">
+                    <mat-label>Hora de Inicio del evento</mat-label>
+                    <input matInput type="time" formControlName="horainicioPost">
+                </mat-form-field>
+                <mat-form-field appearance="outline" *ngIf="tipo =='evento'" class="w-50">
+                    <mat-label>Hora de finalización del evento</mat-label>
+                    <input matInput type="time" formControlName="horafinPost">
+                    <mat-error *ngIf="firstFormGroup.controls['horafinPost'].errors?.horamayor">
+                        La hora final debe ser mayor o igual a la hora inicial
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Siguiente</button>
+                </div>
+
+            </mat-step>
+            <mat-step [stepControl]="firstFormGroup">
+                <ng-template matStepLabel>Elemento Multimedia</ng-template>
+                <mat-accordion class="example-headers-align" multi>
+                    <mat-expansion-panel hideToggle [expanded]="step === 0" (opened)="setStep(0)">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Imagenes públicación
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Agrega varias imagenes
+                                <mat-icon>burst_mode</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-label>Puede subir solo 5 imagenes extensión JPEG JPG PNG</mat-label>
+                        <app-manageimages (messageEvent)="cuerpo($event)" [cantidad]='5'></app-manageimages>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel hideToggle [expanded]="step === 1" (opened)="setStep(1)">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Documentos
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Agrega varios documentos
+                                <mat-icon>file_copy</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-label>Puede subir solo 3 archivos pdf de un tamaño máximo de 5MB</mat-label>
+                        <app-documentos (messageEvent)="documents($event)" [cantidad]="3"></app-documentos>
+                    </mat-expansion-panel>
+                    <mat-expansion-panel hideToggle [expanded]="step === 2" (opened)="setStep(2)">
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Links Youtube
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Agrega links de Youtube
+                                <mat-icon>slideshow</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <mat-label>Puede compartir 3 videos</mat-label>
+                        <div class="row">
+                            <div class="col">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Link Youtube</th>
+                                            <th>Borrar</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody formArrayName="nyoutubelinks">
+                                        <tr *ngFor="let control of nyoutubelinks.controls, let i=index">
+                                            <td>{{i+1}}</td>
+                                            <td>
+                                                <mat-form-field class="tama">
+                                                    <mat-label>Link de youtube</mat-label>
+                                                    <input type="url" [formControlName]="i" [errorStateMatcher]="matcher" matInput placeholder="url" required>
+                                                    <mat-error *ngIf="nyoutubelinks.controls[i].errors?.required">
+                                                        {{errors.llenar}}
+                                                    </mat-error>
+                                                    <mat-error *ngIf="nyoutubelinks.controls[i].errors?.pattern">
+                                                        {{errors.links}}
+                                                    </mat-error>
+                                                </mat-form-field>
+                                            </td>
+                                            <td>
+                                                <button type="button" name="button" class="btn btn-danger" (click)="borrarLinkYoutube(i)">Borrar</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <button type="button" name="button" class="btn btn-primary btn-block mt-3 mb-5 agregarLink" (click)="agregarLinkYoutube()">+ Agregar</button>
+                                <mat-error class="text-center" *ngIf="linkerror"> No puede agregar otro link si el anterior esta vacio o es erróneo</mat-error>
+                            </div>
+
+                        </div>
+                    </mat-expansion-panel>
+                </mat-accordion>
+                <div>
+                    <button mat-button matStepperPrevious>Atrás</button>
+                    <button mat-button matStepperNext>Siguiente</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Guardar el {{tipo}}</ng-template>
+                <mat-label><strong>Importante:</strong></mat-label>
+                <p>Verifique que toda la información que desee compatir este completa antes de publicar</p>
+
+                <div>
+                    <button mat-button matStepperPrevious>Regresar</button>
+                    <button mat-button (click)="reseteo()">Borrar Todo</button>
+                    <button mat-button (click)="formone.ngSubmit.emit()">Publicar {{tipo}}</button>
+                </div>
+            </mat-step>
+        </form>
+    </mat-horizontal-stepper>
+</div>
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-sm modal-dialog-centered">
+        <div class="modal-content">
+            <div class="centrado">
+                <h1>Subiendo la publicación</h1>
+                <mat-spinner></mat-spinner>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,59 @@
+.registro{
+  max-width: 500px;
+  max-height:600px;
+  display:flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+  margin-left: 8px;
+  margin-right: 8px;
+    box-shadow: 5px 5px 10px 10px #596DDA !important;
+
+}
+.contorno{
+  width: 100% !important;
+  font-size: 12px;
+}
+
+.contorno-select{
+  width: 50% !important;
+  font-size: 12px;
+}
+
+.contorno-radio{
+  font-size: 12px;
+width: 100% !important;
+display: flex;
+flex-flow: row nowrap;
+margin-bottom: 8px;
+margin-left: 2px;
+
+}
+.contorno-radio-warn{
+  font-size: 12px;
+width: 100% !important;
+display: flex;
+flex-flow: row nowrap;
+margin-bottom: 8px;
+margin-left: 2px;
+color:red;
+
+}
+.radio {
+
+width: 30%;
+font-size: 12px;
+margin-right: 8px
+  }
+  .radio-warn {
+  color:red;  
+  width: 30%;
+  font-size: 12px;
+  margin-right: 8px
+    }
+
+/*
+@media only screen and (max-width: 767px) {
+
+}
+*/

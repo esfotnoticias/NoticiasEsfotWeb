@@ -1,0 +1,87 @@
+<ng-container *ngIf="valor">
+    <ng-container *ngIf="!usuario.usuarioVerificado">
+        <div class="denegadoHome">
+            <div class="alert alert-danger denegadoAlert" role="alert">
+                Su cuenta aún no esta verificada!
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2F.png?alt=media&token=b8ddcc27-d139-476e-bf40-7ee8094c277c" class="denegado" alt="">
+            <div class="w-100">
+                <button type="button" class="btn btn-danger w-100" [routerLink]="['./../../perfil', usuario.uid]">Click aquí para solicitar acceso</button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="usuario.usuarioVerificado">
+        <div class="contenido">
+
+            <mat-card class="registro">
+                <mat-card-title class="text-center">Administrar Usuarios</mat-card-title>
+                <mat-card-actions class="text-center">
+                    <button mat-raised-button color="primary" name="button" type="button" [routerLink]="['../../nuevo', id]">+ CREAR</button>
+                </mat-card-actions>
+
+                <mat-form-field>
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="estudiante" #input>
+                </mat-form-field>
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+
+                    <ng-container matColumnDef="nombre">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Apellido </th>
+                        <td mat-cell *matCellDef="let element"> {{element.nombre}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="apellido">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                        <td mat-cell *matCellDef="let element"> {{element.apellido}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef> Email </th>
+                        <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="rol">
+                        <th mat-header-cell *matHeaderCellDef> Rol </th>
+                        <td mat-cell *matCellDef="let element"> {{element.rol}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary" name="button" type="button" [routerLink]="['../../usermodify',element.uid, usuario.uid]"><mat-icon>edit</mat-icon></button>
+                                <button mat-raised-button color="warn" name="button" type="button" (click)="eliminarDOs(element.uid,template)"><mat-icon>delete</mat-icon></button>
+                            </mat-card-actions>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No se encontró resultado con "{{input.value}}"</td>
+                    </tr>
+
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+            </mat-card>
+        </div>
+    </ng-container>
+</ng-container>
+<ng-template #template>
+
+    <div class="modal-body text-center">
+        <p>¿Estás seguro de borrar este usuario? esta acción no se puede deshacer</p>
+        <button type="button" class="btn btn-danger cajaBut" (click)="confirm()">Si</button>
+        <button type="button" class="btn btn-primary cajaBut" (click)="decline()">No</button>
+    </div>
+
+</ng-template>

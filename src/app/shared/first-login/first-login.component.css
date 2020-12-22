@@ -1,0 +1,80 @@
+.inputcircular{
+  margin-top: 8px;
+  margin-right :12px;
+  width: 66px;
+  height: 35px;
+  border-radius: 9%;
+  background: #596DDA;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  box-shadow: 0px 2px 3px -1px rgba(0,0,0,0.71);
+}
+.tamanio{
+    font-size: 18px;
+}
+
+.imagen-perfil{
+  padding: 0;
+  margin:  0;
+  border-radius: 100%;
+  width: 200px;
+  height: 200px;
+  border: 3px solid  #596DDA;
+  display: flex;
+  display: row nowrap;
+}
+.imagen-credencial{
+  padding: 1px;
+  margin:  0;
+  border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+  width: 240px;
+  height: 300px;
+  border: 3px solid  #596DDA;
+  display: flex;
+  display: row nowrap;
+}
+.imagen{
+  width: 200px;
+  height: 200px;
+}
+.botones{
+  display: flex;
+  margin-bottom: 0px !important;
+  flex-flow: row nowrap;
+}
+.espaciado{
+  margin-left:4px !important;
+  margin-bottom: 0px !important;
+}
+.columnas{
+
+  display: flex;
+  flex-flow: row wrap;
+}
+mat-card-header{
+  display: flex;
+  justify-content: center;
+}
+mat-card-content{
+  padding: 15px;
+  margin:2px;
+  border: 2px solid  #596DDA;
+  border-radius: 10px 10px 10px 10px;
+-moz-border-radius: 10px 10px 10px 10px;
+-webkit-border-radius: 10px 10px 10px 10px;
+display: flex;
+flex-flow: column nowrap;
+  align-items: center;
+
+}
+mat-card{
+  max-width: 600px;
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+    box-shadow: 5px 5px 10px 10px #596DDA !important;
+}

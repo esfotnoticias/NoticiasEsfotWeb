@@ -1,0 +1,234 @@
+<div class="contenidos">
+    <mat-tab-group mat-align-tabs="center">
+        <mat-tab label="Mi Perfil">
+            <div class="centrado" *ngIf="valor">
+                <mat-label>Imagen de perfil del Usuario</mat-label>
+                <ng-container *ngIf="perfil">
+                    <img [src]="usuario.photoURL[0].url" class="imagen-perfil" alt="">
+                </ng-container>
+                <ng-container *ngIf="!perfil">
+                    <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fno_usuario.png?alt=media&token=6f8f0302-916a-47f3-979c-4ff762a4a759" class="imagen-perfil" alt="prueba">
+                </ng-container>
+                <button type="button" class="btn btn-primary fotoboton" (click)="lgModal.show()"><i class="fas fa-camera-retro tamanio "></i></button>
+
+                <mat-label>Imagen de credencial del Usuario</mat-label>
+                <ng-container *ngIf="creden">
+                    <img [src]="usuario.credencial[0].url" class="imagen-credencial" alt="">
+                </ng-container>
+                <ng-container *ngIf="!creden">
+                    <img src="/assets/credencial.png" class="imagen-credencial" alt="">
+                </ng-container>
+                <button type="button" class="btn btn-primary credenboton" (click)="lgCreden.show()"><i class="fas fa-portrait"></i></button>
+
+            </div>
+        </mat-tab>
+        <mat-tab label="Mi Cuenta">
+
+            <mat-accordion class="example-headers-align">
+                <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Información Personal
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Puede modificar su información
+                            <mat-icon>account_circle</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <form [formGroup]="forma" (ngSubmit)="onUpload(forma)" #formone="ngForm">
+                        <div class="part">
+                            <mat-form-field appearance="outline" class="w-100">
+                                <mat-label>Nombres</mat-label>
+                                <input matInput type="text" placeholder="Ingrese el nombre " [errorStateMatcher]="matcher" formControlName="nombre" maxlength="20" required>
+                                <mat-error *ngIf="forma.controls['nombre'].errors?.required">
+                                    {{errors.name}}
+                                </mat-error>
+                                <mat-error *ngIf="forma.controls['nombre'].errors?.pattern">
+                                    {{errors.solotexto}}
+                                </mat-error>
+                            </mat-form-field>
+                            <div class="part1">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Apellidos</mat-label>
+                                    <input matInput type="text" placeholder="Ingrese el apellido" [errorStateMatcher]="matcher" maxlength="20" formControlName="apellido" required>
+                                    <mat-error *ngIf="forma.controls['apellido'].errors?.required">
+                                        {{errors.apellido}}
+                                    </mat-error>
+                                    <mat-error *ngIf="forma.controls['apellido'].errors?.pattern">
+                                        {{errors.solotexto}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="parte">
+                                <mat-form-field appearance="outline" class="contorno-select w-50">
+                                    <mat-label>Genero</mat-label>
+                                    <mat-select formControlName="genero" required [errorStateMatcher]="matcher">
+                                        <mat-option value="masculino">Masculino</mat-option>
+                                        <mat-option value="femenino">Femenino</mat-option>
+                                        <mat-option value="otro">Otro</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="forma.controls['genero'].errors?.required">
+                                        {{errors.genero}}
+                                    </mat-error>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" class="contorno-select w-50">
+                                    <mat-label>Fecha nacimiento</mat-label>
+                                    <input matInput [matDatepicker]="picker" formControlName="fechanacimiento" [errorStateMatcher]="matcher" required>
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                    <mat-error *ngIf="forma.controls['fechanacimiento'].errors?.required">
+                                        {{errors.fecnac}}
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+                            <mat-form-field appearance="outline" *ngIf="usuario.rol=='estudiante' || usuario.rol=='docente'" class="contorno-select w-100">
+                                <mat-label>Tecnología Superior</mat-label>
+                                <mat-select formControlName="carrera" required>
+                                    <mat-option value="tsds">Desarrollo de Sofwate</mat-option>
+                                    <mat-option value="tsasa">Aguas y Saneamiento Ambiental</mat-option>
+                                    <mat-option value="tsem">Electromecánica</mat-option>
+                                    <mat-option value="tset">Electrónica y Telecomunicaciones</mat-option>
+                                </mat-select>
+                                <mat-error *ngIf="forma.controls['carrera'].errors?.required">
+                                    {{errors.opcion}}
+                                </mat-error>
+                            </mat-form-field>
+                            <button type="button" class="btn btn-primary w-100" (click)="formone.ngSubmit.emit()"><i class="fas fa-save"></i>Guardar Cambios</button>
+                        </div>
+
+                    </form>
+
+                </mat-expansion-panel>
+
+                <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Contraseña
+                        </mat-panel-title>
+                        <mat-panel-description>
+                            Cambio de contraseña
+                            <mat-icon>create</mat-icon>
+                        </mat-panel-description>
+                    </mat-expansion-panel-header>
+                    <ng-container *ngIf="!contrasenia">
+                        <div>
+                            <mat-error *ngIf="incorrecta">
+                                Contraseña incorrecta
+                            </mat-error>
+                            <form [formGroup]="formaingresar" (ngSubmit)="ingresar(formaingresar)" #formtree="ngForm">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Ingrese se contraseña</mat-label>
+                                    <input matInput type="text" placeholder="Ingrese el apellido" [errorStateMatcher]="matcher" formControlName="ingresar" required>
+                                    <mat-error *ngIf="formaingresar.controls['ingresar'].errors?.required">
+                                        {{errors.password}}
+                                    </mat-error>
+                                </mat-form-field>
+                                <button type="button" class="btn btn-success w-100" (click)="formtree.ngSubmit.emit()"><i class="fas fa-key"></i> Aceptar</button>
+                            </form>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="contrasenia">
+                        <form [formGroup]="forma2" (ngSubmit)="resetPassword(forma)" #formtwo="ngForm">
+                            <div>
+                                <div class="parte">
+                                    <mat-form-field appearance="outline" class="w-50">
+                                        <mat-label>Contraseña</mat-label>
+                                        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Ingrese su contraseña" [errorStateMatcher]="matcher" formControlName="password" required>
+                                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                            </button>
+                                        <mat-error *ngIf="forma2.controls['password'].errors?.required">
+                                            {{errors.password}}
+                                        </mat-error>
+
+                                    </mat-form-field>
+                                    <mat-form-field appearance="outline" class="w-50">
+                                        <mat-label>Contraseña</mat-label>
+                                        <input matInput [type]="hide ? 'password' : 'text'" placeholder="Ingrese su contraseña" [errorStateMatcher]="matcher" formControlName="password1" required>
+                                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                         </button>
+
+                                        <mat-error *ngIf="forma2.controls['password1'].errors?.noEsIgual">
+                                            {{errors.password2}}
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <button type="button" class="btn btn-success w-100" (click)="formtwo.ngSubmit.emit()"><i class="fas fa-save"></i> Guardar contraseña</button>
+                            </div>
+                        </form>
+                    </ng-container>
+                </mat-expansion-panel>
+                <ng-container *ngIf="!usuario.usuarioVerificado">
+                    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+                        <mat-expansion-panel-header>
+                            <mat-panel-title>
+                                Mi cuenta
+                            </mat-panel-title>
+                            <mat-panel-description>
+                                Verificar cuenta
+                                <mat-icon>check_circle</mat-icon>
+                            </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <div class="alert alert-info" role="alert">
+                            Verifique que subió todos sus datos especialmente la foto de la credencial
+                        </div>
+                        <div class="alert alert-danger" role="alert">
+                            Si ya repetiste este proceso varias veces el administrador puede eliminar tu cuenta ten mucho cuidado
+                        </div>
+                        <button type="button" class="btn btn-primary btn-lg btn-info w-100" (click)="template.show()"><i class="fas fa-user-check"></i>Solicitar verificación</button>
+                    </mat-expansion-panel>
+                </ng-container>
+            </mat-accordion>
+        </mat-tab>
+    </mat-tab-group>
+</div>
+<div bsModal #lgModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-sizes-name1" class="modal-title pull-left">Seleccione la Imagen de perfil qué desea subir</h4>
+                <button type="button" class="close pull-right" (click)="lgModal.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <app-manageimages (messageEvent)="cuerpo($event)" [cantidad]='1'></app-manageimages>
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="guardarPerfil()"><i class="far fa-image"></i> Guardar foto</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #lgCreden="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 id="dialog-sizes-name1" class="modal-title pull-left">Seleccione la Credencial qué desea subir</h4>
+                <button type="button" class="close pull-right" (click)="lgCreden.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body">
+                <app-manageimages (messageEvent)="credencial($event)" [cantidad]='1'></app-manageimages>
+                <button type="button" class="btn btn-primary btn-lg btn-block" (click)="guardarCreden()"><i class="far fa-image"></i> Guardar foto</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div bsModal #template="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4>¿Estás seguro de solicitar la verificación de tu cuenta? </h4>
+                <button type="button" class="close pull-right" (click)="template.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+            </div>
+            <div class="modal-body text-center">
+                <button type="button" class="btn btn-danger espaciado " (click)="template.hide()">No</button>
+                <button type="button" class=" btn btn-success espaciado " (click)="confirm()">Si</button>
+            </div>
+        </div>
+    </div>
+</div>

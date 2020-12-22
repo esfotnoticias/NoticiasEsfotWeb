@@ -1,0 +1,53 @@
+<div class="contenedor" *ngIf="user$| async as user">
+    <mat-card *ngIf="usuario.rol!=null">
+        <form (ngSubmit)="actualizar( f )" #f="ngForm">
+            <mat-card-header>
+                <mat-card-title>Información de Usuario</mat-card-title>
+            </mat-card-header>
+            <div class="columnas">
+                <mat-card-content>
+                    <mat-label>Foto de usuario</mat-label>
+                    <img src="{{url|noimage:'usuario'}}" class="imagen-perfil ">
+                    <div class="botones">
+                        <label class="inputcircular"><i class="fas fa-camera-retro tamanio "></i>
+             <input name="photoURL"  id="ima"  type="file"  accept="image/x-png,image/jpeg, image/jpg"  (change)="ejecutar($event)"hidden></label>
+
+                        <mat-card-actions class="botones">
+                            <button mat-raised-button color="warn" (click)="eliminar()" type="button"><mat-icon>delete</mat-icon></button>
+                        </mat-card-actions>
+                    </div>
+                    <mat-label *ngIf="usuario.rol =='estudiante'">Seleccione la carrera en la que estudia</mat-label>
+                    <mat-label *ngIf="usuario.rol =='docente'">Seleccione la carrera en la que labora</mat-label>
+                    <mat-form-field appearance="outline" class="contorno-select w-100">
+                        <mat-label>Seleccione carrera </mat-label>
+                        <mat-select [(ngModel)]="usuario.carrera" #carrera="ngModel" name="carrera" required>
+                            <mat-option value="asi">Análisis en Sistemas Informáticos</mat-option>
+                            <mat-option value="asa">Aguas y Saneamiento Ambiental</mat-option>
+                            <mat-option value="em">Electromecánica</mat-option>
+                            <mat-option value="et">Electrónica y Telecomunicaciones</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                </mat-card-content>
+                <mat-card-content *ngIf="usuario.rol !='estudiante'">
+                    <mat-label *ngIf="!checked">Seleccione una credencial</mat-label>
+                    <mat-error *ngIf="checked" class="text-center">*La credencial es obligatoria</mat-error>
+                    <div class="botones">
+                        <label class="inputcircular"><i class="fas fa-camera-retro tamanio "></i>
+          <input  name="credencial"    id="cre"   type="file"  accept="image/x-png,image/jpeg, image/jpg"  (change)="ejecutarCredencial($event)" hidden required>
+      </label>
+                        <mat-card-actions class="botones">
+                            <button mat-raised-button color="warn" (click)="eliminarCredencial()" type="button"><mat-icon>delete</mat-icon></button>
+                        </mat-card-actions>
+                    </div>
+                    <img src="{{urlCredencial|noimage:'credencial'}}" class="imagen-credencial">
+                    <!-- <app-imagenes (messageEvent)="credencial($event)" [cantidad]="5"></app-imagenes>-->
+
+                </mat-card-content>
+            </div>
+            <mat-card-actions class="text-center">
+                <button mat-raised-button color="primary" class="text-center" name="button" type="submit">Guardar y Continuar</button>
+            </mat-card-actions>
+        </form>
+    </mat-card>
+</div>

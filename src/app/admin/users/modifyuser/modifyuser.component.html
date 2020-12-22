@@ -1,0 +1,126 @@
+<div class="contenidos">
+    <mat-horizontal-stepper #stepper>
+        <form [formGroup]="forma" (ngSubmit)="onUpload(forma)" #formone="ngForm">
+            <mat-step [stepControl]="forma">
+                <ng-template matStepLabel>Modificar Usuario</ng-template>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Nombres</mat-label>
+                    <input matInput type="text" placeholder="Ingrese el nombre " [errorStateMatcher]="matcher" formControlName="nombre" required>
+                    <mat-error *ngIf="forma.controls['nombre'].errors?.required">
+                        {{errors.name}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Apellido</mat-label>
+                    <input matInput type="text" placeholder="Ingrese el apellido" [errorStateMatcher]="matcher" formControlName="apellido" required>
+                    <mat-error *ngIf="forma.controls['apellido'].errors?.required">
+                        {{errors.apellido}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="text" placeholder="Ingrese el email " [errorStateMatcher]="matcher" formControlName="email" required>
+                    <mat-error *ngIf="forma.controls['email'].errors?.required">
+                        {{errors.email}}
+                    </mat-error>
+                    <mat-error *ngIf="forma.controls['email'].errors?.pattern">
+                        {{errors.emailmal}}
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <mat-form-field appearance="outline" class="contorno-select w-50">
+                        <mat-label>Genero</mat-label>
+                        <mat-select formControlName="genero" required [errorStateMatcher]="matcher">
+                            <mat-option value="masculino">Masculino</mat-option>
+                            <mat-option value="femenino">Femenino</mat-option>
+                            <mat-option value="otro">Otro</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="forma.controls['carrera'].errors?.required">
+                            {{errors.genero}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" class="contorno-select w-50">
+                        <mat-label>Fecha nacimiento</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="fechanacimiento" [errorStateMatcher]="matcher" required>
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-error *ngIf="forma.controls['fechanacimiento'].errors?.required">
+                            {{errors.fechaPost}}
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <mat-label class="contorno-radio-warn" *ngIf="rolNoValido">Seleccione el tipo de usuario:</mat-label>
+                <mat-label class="contorno-radio" *ngIf="!rolNoValido">Seleccione el tipo de usuario:</mat-label>
+                <div>
+                    <mat-radio-group aria-label="Select an option" color="primary" class="contorno-radio" formControlName="rol" class="w-100" required>
+                        <mat-radio-button value="estudiante" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">Estudiante</mat-radio-button>
+                        <mat-radio-button value="docente" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">Docente</mat-radio-button>
+                        <mat-radio-button value="secretaria" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">Secretaria</mat-radio-button>
+                        <mat-radio-button value="aeesfot" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">P. Esfot</mat-radio-button>
+                        <mat-radio-button value="administrador" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">Administrador</mat-radio-button>
+                        <mat-radio-button value="invitado" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">Invitado</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <mat-form-field appearance="outline" *ngIf="usuario.rol=='estudiante' || usuario.rol=='docente'" class="contorno-select w-100">
+                    <mat-label>Tecnología Superior</mat-label>
+                    <mat-select formControlName="carrera" required>
+                        <mat-option value="tsds">Desarrollo de Sofwate</mat-option>
+                        <mat-option value="tsasa">Aguas y Saneamiento Ambiental</mat-option>
+                        <mat-option value="tsem">Electromecánica</mat-option>
+                        <mat-option value="tset">Electrónica y Telecomunicaciones</mat-option>
+
+                    </mat-select>
+                    <mat-error *ngIf="forma.controls['carrera'].errors?.required">
+                        {{errors.opcion}}
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Atrás</button>
+                    <button mat-button matStepperNext>Siguiente</button>
+                </div>
+            </mat-step>
+            <mat-step [stepControl]="forma">
+                <ng-template matStepLabel>Verificar info</ng-template>
+                <div class="centrado">
+                    <mat-label>Imagen de perfil del Usuario</mat-label>
+                    <ng-container *ngIf="perfil">
+                        <img [src]="usuario.photoURL[0].url" class="imagen-perfil" alt="">
+                    </ng-container>
+                    <ng-container *ngIf="!perfil">
+                        <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fno_usuario.png?alt=media&token=6f8f0302-916a-47f3-979c-4ff762a4a759" class="imagen-perfil" alt="prueba">
+                    </ng-container>
+                    <mat-label>Imagen de credencial del Usuario</mat-label>
+                    <ng-container *ngIf="creden">
+                        <img [src]="usuario.credencial[0].url" class="imagen-credencial" alt="">
+                    </ng-container>
+                    <ng-container *ngIf="!creden">
+                        <img src="/assets/credencial.png" class="imagen-credencial" alt="">
+                    </ng-container>
+
+
+                </div>
+                <div>
+                    <button mat-button matStepperPrevious>Atras</button>
+                    <button mat-button matStepperNext>Siguiente</button>
+                </div>
+            </mat-step>
+            <mat-step>
+                <ng-template matStepLabel>Guardar el Usuario</ng-template>
+                <mat-label><strong>Importante:</strong></mat-label>
+                <p>Verifique que toda la información este verificada antes de aprobar un usuario</p>
+                <div>
+                    <mat-label class="contorno-radio-warn" *ngIf="usuarioVerificadoNoValido">Verifque usuario:</mat-label>
+                    <mat-label class="contorno-radio" *ngIf="!usuarioVerificadoNoValido">Verifque usuario:</mat-label>
+                    <mat-radio-group aria-label="Select an option" color="primary" class="contorno-radio" formControlName="usuarioVerificado" required>
+                        <mat-radio-button value="1" [ngClass]="{'radio': !usuarioVerificadoNoValido, 'radio-warn': usuarioVerificadoNoValido}">No verificado</mat-radio-button>
+                        <mat-radio-button value="2" [ngClass]="{'radio': !usuarioVerificadoNoValido, 'radio-warn': usuarioVerificadoNoValido}">Verificado</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+                <div>
+                    <button mat-button matStepperPrevious>Regresar</button>
+                    <button mat-button (click)="formone.ngSubmit.emit()">Guardar Cambios</button>
+                </div>
+            </mat-step>
+        </form>
+    </mat-horizontal-stepper>
+</div>

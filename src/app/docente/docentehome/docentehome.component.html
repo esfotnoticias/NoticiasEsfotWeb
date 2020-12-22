@@ -1,0 +1,17 @@
+<body>
+    <div class="menu col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12">
+        <app-menu *ngIf="user$ | async as user"></app-menu>
+    </div>
+    <div class="contenido row" *ngIf="user$ | async as user">
+        <div class="sidenav col-xs-12 col-sm-3 col-md-3 col-lg-2 col-xl-2">
+            <app-sidenav [user]='usuario' *ngIf="user$ | async as user"></app-sidenav>
+        </div>
+        <div class="contenidoCentral col-xs-12 col-sm-9 col-md-9 col-lg-7 col-xl-7 ">
+            <router-outlet></router-outlet>
+        </div>
+
+        <div class="contenidoFinal d-none d-lg-block col-lg-3 ">
+            <app-calendar></app-calendar>
+        </div>
+    </div>
+</body>

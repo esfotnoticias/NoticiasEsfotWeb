@@ -1,0 +1,9 @@
+.imagen {
+    width: 175px;
+    height: 150px;
+}
+
+.centranImagen {
+    display: flex;
+    justify-content: center;
+}

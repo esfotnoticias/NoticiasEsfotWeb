@@ -1,0 +1,49 @@
+<div class="card bg-light mb-3" style="max-width: 100%;">
+    <div class="row no-gutters">
+        <div class="col-md-4" [ngSwitch]="publicacion.tipoPost">
+            <ng-container *ngSwitchCase="'Noticias'">
+                <img [src]="publicacion.imagenPost[0].url" *ngIf="imagenes" alt="Photo" class="card-img tarjeta">
+                <img class="card-img tarjeta" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fnoticia.png?alt=media&token=e9955796-7100-4636-8303-3cb539d53e38" alt="imagen" *ngIf="!imagenes">
+            </ng-container>
+            <ng-container *ngSwitchCase="'Eventos'">
+                <img class="card-img tarjeta" [src]="publicacion.imagenPost[0].url" *ngIf="imagenes" alt="Photo of a Shiba Inu" class="card-img tarjeta">
+                <img class="card-img tarjeta" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fevento.png?alt=media&token=1eb3fa46-f595-49e5-aa76-d6c862785ee1" alt="imagen" *ngIf="!imagenes">
+            </ng-container>
+            <ng-container *ngSwitchCase="'Solicitudes'">
+                <ng-container [ngSwitch]="publicacion.categoriaPost">
+                    <ng-container *ngSwitchCase="'Problema'">
+                        <img class="card-img tarjeta" [src]="publicacion.imagenPost[0].url" *ngIf="imagenes" alt="Photo of a Shiba Inu" class="card-img tarjeta">
+                        <img class="card-img tarjeta" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fproblema.png?alt=media&token=d8ad1649-39c3-4dbe-9779-813dbb06aa49" alt="imagen" *ngIf="!imagenes">
+                    </ng-container>
+                    <ng-container *ngSwitchCase="'Emergencia'">
+                        <img class="card-img tarjeta" [src]="publicacion.imagenPost[0].url" *ngIf="imagenes" alt="Photo of a Shiba Inu" class="card-img tarjeta">
+                        <img class="card-img tarjeta" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Femergencia.png?alt=media&token=fe04a738-0f89-4388-bcde-3252cc79d188" alt="imagen" *ngIf="!imagenes">
+                    </ng-container>
+                </ng-container>
+            </ng-container>
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <div class="superior">
+                    <div [routerLink]="['../seeperfil', publicacion.autorIdPost]" class="user">
+                        <img mat-card-avatar [src]="publicacion.autorImagenPost" *ngIf="publicacion.autorImagenPost!=''" alt="prueba">
+                        <img mat-card-avatar src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fno_usuario.png?alt=media&token=6f8f0302-916a-47f3-979c-4ff762a4a759" *ngIf="publicacion.autorImagenPost==''" alt="prueba">
+                        <div>
+                            <mat-card-subtitle>{{publicacion.autorNamePost}}</mat-card-subtitle>
+                            <mat-card-subtitle>{{ publicacion.nameGroupPost }}/{{ publicacion.tipoPost }}/{{ publicacion.categoriaPost }}</mat-card-subtitle>
+                        </div>
+
+                    </div>
+                    <div class="views">
+                        <mat-icon>visibility</mat-icon>
+                        <mat-label>{{publicacion.viewsPost}}</mat-label>
+                    </div>
+                </div>
+                <h1>{{publicacion.tituloPost}}</h1>
+                <p class="card-text">{{publicacion.descripcionPost|textoPortada}}</p>
+                <button class="vermas" [routerLink]="['../vistapublicacion',publicacion.idPost]" (click)="navegar(publicacion.idPost)" type="button">Ver más...</button>
+                <p class="card-text"><small class="text-muted">{{publicacion.fechaPost|fechalast}}</small></p>
+            </div>
+        </div>
+    </div>
+</div>

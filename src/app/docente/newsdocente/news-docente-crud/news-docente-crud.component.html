@@ -1,0 +1,16 @@
+<ng-container *ngIf="valor">
+    <ng-container *ngIf="!usuario.usuarioVerificado">
+        <div class="denegadoHome">
+            <div class="alert alert-danger denegadoAlert" role="alert">
+                Su cuenta aún no esta verificada!
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2F.png?alt=media&token=b8ddcc27-d139-476e-bf40-7ee8094c277c" class="denegado" alt="">
+            <div class="w-100">
+                <button type="button" class="btn btn-danger w-100" [routerLink]="['./../../perfil', usuario.uid]">Click aquí para solicitar acceso</button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="usuario.usuarioVerificado">
+        <app-publicacion tipo="noticia" [user]="usuario"></app-publicacion>
+    </ng-container>
+</ng-container>

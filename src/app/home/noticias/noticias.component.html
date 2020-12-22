@@ -1,0 +1,34 @@
+<div class="fondo w-100">
+    <div class="menubusqueda">
+        <div class="w-50">
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Categorias</mat-label>
+                <select matNativeControl (change)="selectCar($event)">
+                    <option *ngFor="let option of categorias" [value]="option.value"
+                        [selected]="selectedCategoria === option.value">{{ option }}</option>
+                </select>
+            </mat-form-field>
+        </div>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" #myInput (keyup)="imprimir(myInput.value)" [(ngModel)]="busqueda" placeholder="Buscar?" aria-label="Recipient's username" aria-describedby="button-addon2">
+
+        </div>
+    </div>
+    <ng-container *ngIf="pasar">
+        <ng-container *ngIf="!tamanio">
+            <div class="centrado">
+                <img src="/assets/publicaciones.png" width="300px" height="300px" alt="">
+            </div>
+        </ng-container>
+        <ng-container *ngIf="tamanio">
+            <div class="noticia">
+                <app-noticia [publicacion]="item" *ngFor="let item of publicaciones, let i=index" [index]="i"></app-noticia>
+            </div>
+        </ng-container>
+        <ng-container *ngIf="nohay">
+            <div class="centrado">
+                <img src="/assets/sinresultados.png" width="300px" height="300px" alt="">
+            </div>
+        </ng-container>
+    </ng-container>
+</div>

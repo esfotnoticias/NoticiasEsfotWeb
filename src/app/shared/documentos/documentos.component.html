@@ -1,0 +1,51 @@
+<div class="col-md-12 contupload">
+    <div class="row">
+
+        <div class="col-md-12 col-lg-12 ">
+            <div class="row parteSuperior">
+                <label class="inputbutton"><i class="fas fa-file-pdf"></i>
+      <input  appNgDocumento [files]="files" [num]='cantidad' (change)="enviar()" type="file"  accept="application/pdf" hidden (click)="onUpload()">
+  </label>
+                <h3>Seleccione documentos</h3>
+            </div>
+
+            <div appNgDocumento [files]="files" [num]='cantidad' (drop)="enviar()" (mouseOver)="estaSobreElemento = $event" [ngClass]="{ 'file-over': estaSobreElemento }" class="well drop-zone w-100">
+                <h4>Deje caer aquí los archivos</h4>
+                <img src="assets/drop-documents.png" width="100" height="75">
+            </div>
+
+        </div>
+        <div class="col-md-12 col-sm12 col-xl-12 col-xl-12">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">File name</th>
+                        <th scope="col">Size</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let file of files, let i=index">
+
+                        <td>{{ file.name|docname }}</td>
+                        <td>{{ file.file.size / 1024 / 1024 | number: '.2-2' }}MB</td>
+                        <td>
+                            <button type="button" class="btn btn-danger buttonsmall" (click)="eliminar(i)"><i class="fas fa-minus-circle"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--<div class="container-buttons">
+<button (click)="files = []" class="btn btn-danger">Clean all</button>
+<button
+(click)="onUpload()"
+[disabled]="files.length === 0"
+class="btn btn-primary">
+Upload
+</button>
+</div>-->
+    </div>
+
+</div>

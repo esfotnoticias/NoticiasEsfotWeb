@@ -1,0 +1,46 @@
+<mat-card *ngIf="valor">
+    <form [formGroup]="firstFormGroup" (ngSubmit)="onUpload(firstFormGroup)" #formone="ngForm">
+        <h1 class="text-center">Modificar Grupo</h1>
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Nombre del Grupo</mat-label>
+            <input matInput placeholder="Nombre" [errorStateMatcher]="matcher" formControlName="nameGroup" required maxlength="15">
+            <mat-error *ngIf="firstFormGroup.controls['nameGroup'].errors?.required">
+                {{errors.llenar}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Deatelle del Grupo</mat-label>
+            <input matInput placeholder="Detalle" [errorStateMatcher]="matcher" formControlName="detalleGroup" maxlength="25" required>
+            <mat-error *ngIf="firstFormGroup.controls['detalleGroup'].errors?.required">
+                {{errors.llenar}}
+            </mat-error>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Número Maximo de Participantes</mat-label>
+            <input matInput type="number" placeholder="Participantes" formControlName="maxmienbrosGroup" [errorStateMatcher]="matcher" required>
+            <mat-error *ngIf="firstFormGroup.controls['maxmienbrosGroup'].errors?.required">
+                {{errors.llenar}}
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.controls['maxmienbrosGroup'].errors?.max">
+                {{errors.maxEstudent}}
+            </mat-error>
+            <mat-error *ngIf="firstFormGroup.controls['maxmienbrosGroup'].errors?.min">
+                No se puede colocar una cantidad mínima a la guardada previamente
+            </mat-error>
+            <!--<mat-error>
+                Número maximo de estudiantes es <strong>50</strong>
+            </mat-error>-->
+        </mat-form-field>
+        <mat-label>Generar nuevo Códgo de entrada:</mat-label>
+        <div class="input-group mb-4">
+            <input type="text" disabled class="form-control" placeholder="Código" formControlName="idGroup" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="button" (click)="generar()" id="button-addon2">Generar</button>
+            </div>
+        </div>
+        <mat-card-actions class="text-center">
+            <button mat-button type="submit" class="text-center">Guardar Cambios</button>
+        </mat-card-actions>
+
+    </form>
+</mat-card>

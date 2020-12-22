@@ -1,0 +1,52 @@
+<ng-container *ngIf="valor">
+    <ng-container *ngIf="!usuario.usuarioVerificado">
+        <div class="denegadoHome">
+            <div class="alert alert-danger denegadoAlert" role="alert">
+                Su cuenta aun no esta verificada
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2F.png?alt=media&token=b8ddcc27-d139-476e-bf40-7ee8094c277c" class="denegado" alt="">
+            <div class="w-100">
+                <button type="button" class="btn btn-danger w-100" [routerLink]="['./../../perfil', usuario.uid]">Click aquí para solicitar acceso</button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="usuario.usuarioVerificado">
+        <mat-card>
+            <form [formGroup]="firstFormGroup" (ngSubmit)="onUpload(firstFormGroup)" #formone="ngForm">
+                <h1 class="text-center">Crear Grupo</h1>
+                <label class="text-center"><strong>*Importante:Solo puede crear 8 grupos</strong></label>
+                <mat-error *ngIf="tamanioError">
+                    Ha superado en número maximo de grupos que puede tener
+                </mat-error>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Nombre del Grupo</mat-label>
+                    <input matInput placeholder="Nombre" [errorStateMatcher]="matcher" formControlName="nameGroup" required maxlength="15">
+                    <mat-error *ngIf="firstFormGroup.controls['nameGroup'].errors?.required">
+                        {{errors.llenar}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Deatelle del Grupo</mat-label>
+                    <input matInput placeholder="Detalle" [errorStateMatcher]="matcher" formControlName="detalleGroup" maxlength="25" required>
+                    <mat-error *ngIf="firstFormGroup.controls['detalleGroup'].errors?.required">
+                        {{errors.llenar}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-100">
+                    <mat-label>Número Maximo de Participantes</mat-label>
+                    <input matInput type="number" placeholder="Participantes" formControlName="maxmienbrosGroup" [errorStateMatcher]="matcher" required>
+                    <mat-error *ngIf="firstFormGroup.controls['maxmienbrosGroup'].errors?.required">
+                        {{errors.llenar}}
+                    </mat-error>
+                    <mat-error *ngIf="firstFormGroup.controls['maxmienbrosGroup'].errors?.max">
+                        {{errors.maxEstudent}}
+                    </mat-error>
+                </mat-form-field>
+                <mat-card-actions class="text-center">
+                    <button mat-button type="submit" class="text-center">Guardar Grupo</button>
+                </mat-card-actions>
+
+            </form>
+        </mat-card>
+    </ng-container>
+</ng-container>

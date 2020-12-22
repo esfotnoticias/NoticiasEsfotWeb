@@ -1,0 +1,23 @@
+<div class="col-md-12 contupload">
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="row parteSuperior">
+                <label class="inputbutton"><i class="fas fa-image"></i>
+      <input  appNgImagen [files]="files" [datos]="datos" [num]='cantidad'  id="ima" type="file" (change)="enviar()"  accept="image/x-png,image/jpeg, image/jpg" hidden (click)="onUpload()">
+  </label>
+                <h3>Seleccione imagenes</h3>
+            </div>
+            <div appNgImagen [files]="files" [datos]="datos" [num]='cantidad' (drop)="enviar()" (mouseOver)="estaSobreElemento = $event" [ngClass]="{ 'file-over': estaSobreElemento }" class="well drop-zone w-100">
+                <h4>Deje caer aquí los archivos</h4>
+                <img src="assets/drop-images.png" class="rango">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="conjunto col-md-12 col-lg-12">
+    <div *ngFor="let item of datos,let i=index" class="caja">
+        <img [src]="item" class="imagen">
+        <button type="button" name="button" (click)="eliminar(i)"><i class="far fa-times-circle"></i></button>
+    </div>
+
+</div>

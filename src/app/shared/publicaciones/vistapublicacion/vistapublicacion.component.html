@@ -1,0 +1,107 @@
+<ng-container *ngIf="valor">
+    <ng-container *ngIf="!existe">
+        <div class="noexiste">
+            <img src="/assets/sinresultados.png" class="imagenExiste" alt="">
+        </div>
+    </ng-container>
+    <ng-container *ngIf="existe">
+        <div class="vista">
+            <mat-card class="example-card publication">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>{{publicacion.autorNamePost}}</mat-card-title>
+                    <mat-card-subtitle>{{ publicacion.nameGroupPost }}/{{ publicacion.tipoPost }}/{{ publicacion.categoriaPost }}</mat-card-subtitle>
+                    <mat-card-subtitle>{{publicacion.fechaPost|viewtime}}</mat-card-subtitle>
+                    <img mat-card-avatar [src]="publicacion.autorImagenPost" *ngIf="publicacion.autorImagenPost!=''" alt="prueba">
+                    <img mat-card-avatar src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fno_usuario.png?alt=media&token=6f8f0302-916a-47f3-979c-4ff762a4a759" *ngIf="publicacion.autorImagenPost==''" alt="prueba">
+                </mat-card-header>
+                <h1>{{publicacion.tituloPost}}</h1>
+                <mat-card-content>
+                    <p>{{publicacion.descripcionPost}}</p>
+                    <ng-container *ngIf="publicacion.tipoPost=='Eventos'">
+                        <mat-label *ngIf="publicacion.telPost">
+                            <mat-icon> phone</mat-icon>{{publicacion.telPost}}</mat-label>
+                        <mat-label *ngIf="publicacion.lugarPost!=''">
+                            <mat-icon>location_on</mat-icon>{{publicacion.lugarPost}}</mat-label>
+                        <mat-label *ngIf="publicacion.fechaInicioPost!=null">
+                            <mat-icon>today</mat-icon>{{publicacion.fechaInicioPost|viewtime}}</mat-label>
+                        <mat-label *ngIf="publicacion.fechaFinPost!=null">
+                            -{{publicacion.fechaFinPost|viewtime}}</mat-label>
+                        <mat-label *ngIf="publicacion.horainicioPost!=null">
+                            <mat-icon>alarm</mat-icon> {{publicacion.horainicioPost}}</mat-label>
+                        <mat-label *ngIf="publicacion.horafinPost!=null">
+                            -{{publicacion.horafinPost}}</mat-label>
+                    </ng-container>
+                </mat-card-content>
+                <mat-tab-group mat-align-tabs="center">
+                    <mat-tab label="Imagenes">
+                        <ng-container *ngIf="images == 0">
+                            <div [ngSwitch]="publicacion.tipoPost">
+                                <ng-container *ngSwitchCase="'Noticias'">
+
+                                    <img class="imgDeft" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fnoticia.png?alt=media&token=e9955796-7100-4636-8303-3cb539d53e38" alt="imagen">
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'Eventos'">
+
+                                    <img class="imgDeft" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fevento.png?alt=media&token=1eb3fa46-f595-49e5-aa76-d6c862785ee1" alt="imagen">
+                                </ng-container>
+                                <ng-container *ngSwitchCase="'Solicitudes'">
+                                    <ng-container [ngSwitch]="publicacion.categoriaPost">
+                                        <ng-container *ngSwitchCase="'Problema'">
+
+                                            <img class="imgDeft" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fproblema.png?alt=media&token=d8ad1649-39c3-4dbe-9779-813dbb06aa49" alt="imagen">
+                                        </ng-container>
+                                        <ng-container *ngSwitchCase="'Emergencia'">
+
+                                            <img class="imgDeft" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Femergencia.png?alt=media&token=fe04a738-0f89-4388-bcde-3252cc79d188" alt="imagen">
+                                        </ng-container>
+                                    </ng-container>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="images != 0">
+                            <div class="imagenes">
+                                <ng-container *ngFor="let item of publicacion.imagenPost, let i=index">
+                                    <img [src]="item.url" *ngIf=" carousel==i" class="imagen animated fadeIn fast">
+                                </ng-container>
+                                <div class="btn-group centradoButton" role="group" aria-label="Basic example">
+                                    <button type="button" class="btn btn-primary btn-sm" (click)="preview()"><i class="fas fa-caret-left"></i></button>
+                                    <button type="button" class="btn btn-success btn-sm" (click)="next()"><i class="fas fa-caret-right"></i></button>
+                                </div>
+                            </div>
+                        </ng-container>
+                    </mat-tab>
+                    <mat-tab label="Documentos">
+                        <ng-container *ngIf="doc !=0">
+                            <div class="documentos">
+                                <ng-container *ngFor="let item of publicacion.docsPost, let i=index">
+                                    <embed type="application/x-google-chrome-pdf" class="documento" [src]="item.url| domseguro" type="" *ngIf="item.url!=''">
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="doc ==0">
+                            <img src="assets/nohaydocumentos.png" class="imgDeft" alt="">
+                        </ng-container>
+                    </mat-tab>
+                    <mat-tab label="Videos">
+                        <ng-container *ngIf="vid !=0">
+                            <ng-container *ngFor="let item of publicacion.ytUrlPost, let i=index">
+                                <div class="videos">
+                                    <youtube-player [videoId]="item|youtube" suggestedQuality="highres" [height]="250" [width]="500" [startSeconds]="4" [endSeconds]="8">
+                                    </youtube-player>
+                                </div>
+                            </ng-container>
+                        </ng-container>
+                        <ng-container *ngIf="vid ==0">
+                            <img src="assets/nohayvideos.png" class="imgDeft" alt="">
+                        </ng-container>
+                    </mat-tab>
+                </mat-tab-group>
+
+
+
+
+            </mat-card>
+        </div>
+    </ng-container>
+</ng-container>

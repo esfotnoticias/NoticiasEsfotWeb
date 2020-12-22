@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+    font-size: 10px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+.caja {
+    margin-top: 10%;
+}
+
+mat-card {
+    margin: 5px;
+}

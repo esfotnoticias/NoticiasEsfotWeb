@@ -1,0 +1,9 @@
+.userestad {
+    margin-top: 5px;
+}
+
+.centrar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

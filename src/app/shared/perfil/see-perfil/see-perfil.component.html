@@ -1,0 +1,178 @@
+<ng-container *ngIf="valor">
+    <ng-container *ngIf="!existe">
+        <div class="noexiste">
+            <img src="/assets/buhousuarionoexiste.png" class="imagenExiste" alt="">
+        </div>
+    </ng-container>
+    <ng-container *ngIf="existe">
+        <ng-container *ngIf="usuario.rol=='aeesfot'">
+            <div class="fondo w-100">
+                <mat-tab-group mat-align-tabs="center">
+                    <mat-tab label="Perfil de Usario">
+                        <div class="centrado">
+                            <h3>Esta foto no es su perfil pero es la imagen se mostrara dado su perfil de P. AEESFOT</h3>
+                            <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2F09102020aeesfot01.png?alt=media&token=bf86ade7-868c-4b6e-a1de-1791b064b6e4" class="imagen-perfil" alt="">
+                            <table class="table color w-50">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Nombres:</th>
+                                        <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Rol:</th>
+                                        <td>{{usuario.rol}}</td>
+                                    </tr>
+                                    <tr class="bg-primary">
+                                        <th scope="row">Correo:</th>
+                                        <td>{{usuario.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Estado:</th>
+                                        <td>{{usuario.estado}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Genero:</th>
+                                        <td>{{usuario.genero}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Cumpleaños:</th>
+                                        <td>{{usuario.fechanacimiento|viewtime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Carrera:</th>
+                                        <td>{{usuario.carrera|carreras}}</td>
+                                    </tr>
+                                    <tr *ngIf="usuario.usuarioVerificado">
+                                        <th scope="row">Cuenta:</th>
+                                        <td>Verificada</td>
+                                    </tr>
+                                    <tr *ngIf="!usuario.usuarioVerificado">
+                                        <th scope="row">Cuenta:</th>
+                                        <td>No Verificada</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+
+        </ng-container>
+
+
+        <ng-container *ngIf="usuario.rol=='secretaria'">
+            <div class="fondo w-100">
+                <mat-tab-group mat-align-tabs="center">
+                    <mat-tab label="Perfil de Usario">
+                        <div class="centrado">
+                            <h3>Esta foto no es su perfil pero es la imagen se mostrara dado su perfil de Secretaria</h3>
+                            <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2F09102020esfot01.jpg?alt=media&token=090239b5-ccae-4094-86cf-1af382854385" class="imagen-perfil" alt="">
+                            <table class="table table-striped  w-50">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Nombres:</th>
+                                        <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Rol:</th>
+                                        <td>{{usuario.rol}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Correo:</th>
+                                        <td>{{usuario.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Estado:</th>
+                                        <td>{{usuario.estado}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Genero:</th>
+                                        <td>{{usuario.genero}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Cumpleaños:</th>
+                                        <td>{{usuario.fechanacimiento|viewtime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Carrera:</th>
+                                        <td>{{usuario.carrera|carreras}}</td>
+                                    </tr>
+                                    <tr *ngIf="usuario.usuarioVerificado">
+                                        <th scope="row">Cuenta:</th>
+                                        <td>Verificada</td>
+                                    </tr>
+                                    <tr *ngIf="!usuario.usuarioVerificado">
+                                        <th scope="row">Cuenta:</th>
+                                        <td>No Verificada</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+
+        </ng-container>
+
+        <ng-container *ngIf="usuario.rol=='docente' || usuario.rol=='administrador' || usuario.rol=='estudiante'">
+            <div class="fondo w-100">
+                <mat-tab-group mat-align-tabs="center">
+                    <mat-tab label="Perfil de Usario">
+                        <div class="centrado">
+                            <ng-container *ngIf="perfil">
+                                <img [src]="usuario.photoURL[0].url" class="imagen-perfil" alt="">
+                            </ng-container>
+                            <ng-container *ngIf="!perfil">
+                                <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2Fno_usuario.png?alt=media&token=6f8f0302-916a-47f3-979c-4ff762a4a759" class="imagen-perfil" alt="prueba">
+                            </ng-container>
+                            <table class="table table-striped w-50">
+                                <tbody>
+                                    <tr>
+                                        <th scope="row">Nombres:</th>
+                                        <td>{{usuario.nombre}} {{usuario.apellido}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Rol:</th>
+                                        <td>{{usuario.rol}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Correo:</th>
+                                        <td>{{usuario.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Estado:</th>
+                                        <td>{{usuario.estado}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Genero:</th>
+                                        <td>{{usuario.genero}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Cumpleaños:</th>
+                                        <td>{{usuario.fechanacimiento|viewtime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row">Carrera:</th>
+                                        <td>{{usuario.carrera|carreras}}</td>
+                                    </tr>
+                                    <tr *ngIf="usuario.usuarioVerificado">
+                                        <th scope="row">Cuenta:</th>
+                                        <td>Verificada</td>
+                                    </tr>
+                                    <tr *ngIf="!usuario.usuarioVerificado">
+                                        <th scope="row">Cuenta:</th>
+                                        <td>No Verificada</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </ng-container>
+    </ng-container>
+</ng-container>

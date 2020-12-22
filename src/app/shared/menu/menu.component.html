@@ -1,0 +1,54 @@
+<mat-toolbar color="primary" *ngIf="id!=undefined && user!=undefined">
+    <div class="part1">
+        <button mat-icon-button class="example-icon" [routerLink]="['noticias']" aria-label="Example icon-button with menu icon">
+              <div>
+                <img src="assets/buho.png" class="imagen" alt="">
+              </div>
+            </button>
+        <span class="d-none d-lg-block">ESFOT NOTICIAS</span>
+    </div>
+    <div class="part3">
+        <img class="image" src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2FfinalEsfot.png?alt=media&token=72669374-f22b-466c-94b0-b03b43ab8b8b" alt="">
+    </div>
+    <div class="part2">
+        <div class="divcir">
+            <button mat-icon-button class="example-icon" [routerLink]="['seeperfil', user.uid]" aria-label="Example icon-button with menu icon">
+              <div *ngIf="valor" class="centraImg">
+                <img src="assets/no_usuario1.png" *ngIf="!perfil" class="imagenCir" alt="">
+                <img [src]="user.photoURL[0].url" *ngIf="perfil" class="imagenCir" alt="">
+              </div>
+            </button>
+        </div>
+        <!-- <span *ngIf="user$ | async as user" class="d-none d-lg-block">{{user.displayName}}</span> -->
+        <span class="d-none d-lg-block">{{user.apellido}}</span>
+
+        <button class="noti" [matMenuTriggerFor]="noti"><mat-icon [matBadge]="numero" matBadgeColor="warn">notifications</mat-icon></button>
+        <mat-menu #noti="matMenu">
+            <app-notificaciones (canti)="cantidadNot($event)" [user]="user" [id]="id"></app-notificaciones>
+        </mat-menu>
+
+
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+      <mat-icon>list</mat-icon>
+    </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item [routerLink]="['perfil', user.uid]">
+              <mat-icon>edit</mat-icon>
+              <span>Editar Usuario</span>
+            </button>
+
+            <button mat-menu-item [routerLink]="['seeperfil', user.uid]">
+              <mat-icon>account_box</mat-icon>
+              <span>Ver Perfil</span>
+            </button>
+
+            <button mat-menu-item (click)="salir()">
+              <mat-icon>logout</mat-icon>
+              <span>Salir</span>
+            </button>
+        </mat-menu>
+    </div>
+
+
+</mat-toolbar>

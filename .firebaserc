@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "noticias-esfot": {
+      "hosting": {
+        "Tesis": [
+          "noticias-esfot"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "noticias-esfot"
+  }
+}

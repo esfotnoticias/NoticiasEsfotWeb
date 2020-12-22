@@ -1,0 +1,105 @@
+<div class="side">
+
+    <li class="list-group-item  d-none d-md-block w-100 titulo" style="color:#0372ff"><label class="subtitulo">{{user.rol|uppercase}}</label></li>
+    <a [routerLink]="['noticias']" class="list-group-item w-100 " style="text-decoration:none"><i class="fas fa-home"></i>Inicio</a>
+    <mat-expansion-panel hideToggle class="w-99" *ngIf="user.rol=='administrador'" [expanded]="step === 0" (opened)="setStep(0)">
+        <mat-expansion-panel-header class="probar">
+            <mat-panel-title class="probar"><i class="fas fa-user"></i> Usuarios
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['nuevo', user.uid]" class="link"><i class="fas fa-user-plus"></i>Crear</a>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['modificar', user.uid]" class="link"><i class="fas fa-user-edit"></i>Modificar</a>
+        <mat-divider></mat-divider>
+    </mat-expansion-panel>
+
+
+    <!--Menu Noticias-->
+
+    <mat-expansion-panel hideToggle class="w-99" [expanded]="step === 1" (opened)="setStep(1)">
+        <mat-expansion-panel-header class="probar">
+            <mat-panel-title class="probar"><i class="fas fa-newspaper"></i> Noticias
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['crearnoticias', user.uid]" class="link"><i class="fas fa-plus-square"></i>Crear</a>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['newshome', user.uid]" class="link"><i class="fas fa-cog"></i>Modificar</a>
+        <mat-divider></mat-divider>
+    </mat-expansion-panel>
+    <!--Menu Eventos-->
+
+    <mat-expansion-panel hideToggle class="w-99" *ngIf="user.rol!='estudiante'" [expanded]="step === 2" (opened)="setStep(2)">
+        <mat-expansion-panel-header class="probar">
+            <mat-panel-title class="probar"><i class="far fa-calendar-check"></i> Eventos
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['eventos', user.uid]" class="link"><i class="fas fa-plus-square"></i>Crear</a>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['eventshome', user.uid]" class="link"><i class="fas fa-cog"></i>Modificar</a>
+        <mat-divider></mat-divider>
+    </mat-expansion-panel>
+    <!--Menu Problemas-->
+    <mat-expansion-panel hideToggle class="w-99" *ngIf="user.rol=='secretaria' || user.rol=='aeesfot'  || user.rol=='docente'" [expanded]="step === 3" (opened)="setStep(3)">
+        <mat-expansion-panel-header class="probar">
+            <mat-panel-title class="probar"><i class="fas fa-exclamation-circle"></i> Solicitud
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['solicitud', user.uid]" class="link"><i class="fas fa-plus-square"></i>Crear</a>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['solicitudhome', user.uid]" class="link"><i class="fas fa-cog"></i>Modificar</a>
+        <mat-divider></mat-divider>
+    </mat-expansion-panel>
+    <!--Menu Grupos-->
+    <mat-expansion-panel hideToggle class="w-99" *ngIf="user.rol=='secretaria'|| user.rol=='docente'|| user.rol=='aeesfot'" [expanded]="step === 4" (opened)="setStep(4)">
+        <mat-expansion-panel-header class="probar">
+            <mat-panel-title class="probar"><i class="fas fa-user-friends"></i> Grupos
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['creategroup', user.uid]" class="link"><i class="fas fa-plus-square"></i>Crear</a>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['viewgroup', user.uid]" routerLinkActive="active" class="link"><i class="fas fa-users-cog"></i>Modificar</a>
+        <mat-divider></mat-divider>
+    </mat-expansion-panel>
+
+    <!--Menu Estadísticas-->
+
+    <mat-expansion-panel hideToggle class="w-99" *ngIf="user.rol!='estudiante'" [expanded]="step === 5" (opened)="setStep(5)">
+        <mat-expansion-panel-header class="probar">
+            <mat-panel-title class="probar"><i class="fas fa-chart-bar"></i> Estadísticas
+            </mat-panel-title>
+        </mat-expansion-panel-header>
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="user.rol=='administrador'">
+            <a [routerLink]="['userstatistics', user.uid]" class="link"><i class="fas fa-user"></i>Usuarios</a>
+            <mat-divider></mat-divider>
+        </ng-container>
+        <a [routerLink]="['notistatistics', user.uid]" class="link"><i class="far fa-newspaper"></i>Noticias</a>
+        <mat-divider></mat-divider>
+        <a [routerLink]="['eventstatistics', user.uid]" class="link"><i class="far fa-calendar-alt"></i>Eventos</a>
+        <mat-divider></mat-divider>
+        <ng-container *ngIf="user.rol=='secretaria' || user.rol=='aeesfot' || user.rol=='docente'">
+            <a [routerLink]="['solistatistics', user.uid]" class="link"><i class="fas fa-exclamation-triangle"></i>Solicitudes</a>
+            <mat-divider></mat-divider>
+        </ng-container>
+    </mat-expansion-panel>
+</div>
+
+
+<div class="todo">
+    <div class="row">
+        <div class="list-group list-group-horizontal ocultar-div">
+            <li><a [routerLink]="['noticias']" class="list-group-item"><i class="fas fa-home"></i></a></li>
+            <li *ngIf="user.rol=='administrador'"><a [routerLink]="['modificar', user.uid]" class="list-group-item"><i class="fas fa-user"></i></a></li>
+            <li><a [routerLink]="['newshome', user.uid]" class="list-group-item"><i class="fas fa-newspaper"></i></a></li>
+            <li><a [routerLink]="['eventshome', user.uid]" class="list-group-item"><i class="far fa-calendar-check"></i></a></li>
+            <li *ngIf="user.rol=='secretaria' || user.rol=='aeesfot'"><a [routerLink]="['solicitudhome', user.uid]" class="list-group-item"><i class="fas fa-exclamation-triangle"></i></a></li>
+            <li *ngIf="user.rol=='secretaria'|| user.rol=='docente'|| user.rol=='aeesfot'"><a [routerLink]="['viewgroup', user.uid]" class="list-group-item"><i class="fas fa-users"></i></a></li>
+        </div>
+
+    </div>
+</div>

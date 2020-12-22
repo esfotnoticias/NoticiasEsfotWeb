@@ -1,0 +1,203 @@
+<mat-tab-group mat-align-tabs="center">
+    <mat-tab [label]="mensajeTitulo">
+        <div class="caja">
+            <mat-card class="registro">
+                <mat-card-title *ngIf="tipo=='solicitud'" class="text-center">Mis solicitudes</mat-card-title>
+                <mat-card-title *ngIf="tipo=='noticia'" class="text-center">Mis noticias</mat-card-title>
+                <mat-card-title *ngIf="tipo=='evento'" class="text-center">Mis eventos</mat-card-title>
+
+                <mat-card-actions *ngIf="tipo=='noticia'" class="text-center">
+                    <button mat-raised-button color="primary" name="button" type="button" [routerLink]="['../../crearnoticias',user.uid]">+ CREAR</button>
+                </mat-card-actions>
+                <mat-card-actions *ngIf="tipo=='evento'" class="text-center">
+                    <button mat-raised-button color="primary" name="button" type="button" [routerLink]="['../../eventos',user.uid]">+ CREAR</button>
+                </mat-card-actions>
+                <mat-card-actions *ngIf="tipo=='solicitud'" class="text-center">
+                    <button mat-raised-button color="primary" name="button" type="button" [routerLink]="['../../solicitud',user.uid]">+ CREAR</button>
+                </mat-card-actions>
+                <mat-form-field>
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter($event)" placeholder="estudiante" #input>
+                </mat-form-field>
+
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" matSort>
+
+
+                    <ng-container matColumnDef="titulo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
+                        <td mat-cell *matCellDef="let element">{{element.tituloPost}}</td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="tipo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+                        <td mat-cell *matCellDef="let element"> {{element.tipoPost}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="grupo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+                        <td mat-cell *matCellDef="let element"> {{element.nameGroupPost}} </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef>Estado</th>
+                        <td mat-cell *matCellDef="let element"> {{element.estadoPost}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary" name="button" *ngIf="tipo=='noticia'" type="button" [routerLink]="['../../modifynoticias',user.uid,element.id,'gpowltswc1']"><mat-icon>edit</mat-icon></button>
+                                <button mat-raised-button color="primary" name="button" *ngIf="tipo=='evento'" type="button" [routerLink]="['../../modifyeventos',user.uid,element.id,'gpowltswc1']"><mat-icon>edit</mat-icon></button>
+                                <button mat-raised-button color="primary" name="button" *ngIf="tipo=='solicitud'" type="button" [routerLink]="['../../modifysolicitud',user.uid,element.id,'gpowltswc1']"><mat-icon>edit</mat-icon></button>
+                                <button mat-raised-button color="warn" name="button" type="button" (click)="eliminarDOs(element.id,template)"><mat-icon>delete</mat-icon></button>
+                            </mat-card-actions>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No se encontró resultado con "{{input.value}}"</td>
+                    </tr>
+
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+
+            </mat-card>
+        </div>
+    </mat-tab>
+    <mat-tab [label]="mensajeTitulo2" *ngIf="user.rol!='administrador'">
+        <ng-container>
+            <!--<h1>No tienes grupo puede crear uno aqui:</h1>-->
+        </ng-container>
+        <ng-container>
+            <div class="caja">
+                <mat-card class="registro">
+                    <mat-card-title *ngIf="tipo=='noticia'" class="text-center">Administrar noticias de mis grupos</mat-card-title>
+                    <mat-card-title *ngIf="tipo=='evento'" class="text-center">Administrar eventos de mis grupos</mat-card-title>
+                    <mat-card-title *ngIf="tipo=='solicitud'" class="text-center">Administrar solicitudes de mis grupos</mat-card-title>
+
+                    <mat-form-field>
+                        <mat-label>Buscar</mat-label>
+                        <input matInput (keyup)="applyFilter1($event)" placeholder="noticia" #input>
+                    </mat-form-field>
+
+                    <table mat-table [dataSource]="dataSource1" class="mat-elevation-z8" matSort>
+
+                        <ng-container matColumnDef="titulo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
+                            <td mat-cell *matCellDef="let element">{{element.tituloPost}}</td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="tipo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+                            <td mat-cell *matCellDef="let element"> {{element.tipoPost}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="grupo">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+                            <td mat-cell *matCellDef="let element"> {{element.nameGroupPost}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="estado">
+                            <th mat-header-cell *matHeaderCellDef>Estado</th>
+                            <td mat-cell *matCellDef="let element"> {{element.estadoPost}} </td>
+                        </ng-container>
+
+
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                            <td mat-cell *matCellDef="let element">
+                                <mat-card-actions class="text-center">
+                                    <button mat-raised-button color="primary" name="button" *ngIf="tipo=='noticia'" type="button" [routerLink]="['../../modifynoticias',element.autorIdPost,element.id,'gpmbltswm1']"><mat-icon>edit</mat-icon></button>
+                                    <button mat-raised-button color="primary" name="button" *ngIf="tipo=='evento'" type="button" [routerLink]="['../../modifyeventos',element.autorIdPost,element.id,'gpmbltswm1']"><mat-icon>edit</mat-icon></button>
+                                    <button mat-raised-button color="primary" name="button" *ngIf="tipo=='solicitud'" type="button" [routerLink]="['../../modifysolicitud',element.autorIdPost,element.id,'gpmbltswm1']"><mat-icon>edit</mat-icon></button>
+                                    <button mat-raised-button color="warn" name="button" type="button" (click)="eliminarDOs(element.id,template)"><mat-icon>delete</mat-icon></button>
+                                </mat-card-actions>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+
+                        <tr class="mat-row" *matNoDataRow>
+                            <td class="mat-cell" colspan="4">No se encontró resultado con "{{input.value}}"</td>
+                        </tr>
+                    </table>
+                    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+                </mat-card>
+            </div>
+        </ng-container>
+    </mat-tab>
+    <mat-tab [label]="mensajeTitulo3">
+        <div class="caja">
+            <mat-card class="registro">
+                <mat-card-title *ngIf="tipo=='noticia'" class="text-center">Administrar noticias globales</mat-card-title>
+                <mat-card-title *ngIf="tipo=='evento'" class="text-center">Administrar eventos globales</mat-card-title>
+                <mat-card-title *ngIf="tipo=='solicitud'" class="text-center">Administrar solicitudes globales</mat-card-title>
+
+
+                <mat-form-field>
+                    <mat-label>Buscar</mat-label>
+                    <input matInput (keyup)="applyFilter2($event)" placeholder="estudiante" #input>
+                </mat-form-field>
+
+                <table mat-table [dataSource]="dataSource2" class="mat-elevation-z8" matSort>
+
+                    <ng-container matColumnDef="titulo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
+                        <td mat-cell *matCellDef="let element">{{element.tituloPost}}</td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="tipo">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>Tipo</th>
+                        <td mat-cell *matCellDef="let element"> {{element.tipoPost}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="estado">
+                        <th mat-header-cell *matHeaderCellDef>Estado</th>
+                        <td mat-cell *matCellDef="let element"> {{element.estadoPost}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="actions">
+                        <th mat-header-cell *matHeaderCellDef>Acciones</th>
+                        <td mat-cell *matCellDef="let element">
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary" name="button" type="button" *ngIf="tipo=='noticia'" [routerLink]="['../../modifynoticias',element.autorIdPost,element.id,'gpglltsww1']"><mat-icon>edit</mat-icon></button>
+                                <button mat-raised-button color="primary" name="button" type="button" *ngIf="tipo=='evento'" [routerLink]="['../../modifyeventos',element.autorIdPost,element.id,'gpglltsww1']"><mat-icon>edit</mat-icon></button>
+                                <button mat-raised-button color="primary" name="button" type="button" *ngIf="tipo=='solicitud'" [routerLink]="['../../modifysolicitud',element.autorIdPost,element.id,'gpglltsww1']"><mat-icon>edit</mat-icon></button>
+                                <button mat-raised-button color="warn" name="button" type="button" (click)="eliminarDOs(element.id,template)"><mat-icon>delete</mat-icon></button>
+                            </mat-card-actions>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+
+                    <tr class="mat-row" *matNoDataRow>
+                        <td class="mat-cell" colspan="4">No se encontró resultado con "{{input.value}}"</td>
+                    </tr>
+                </table>
+                <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+            </mat-card>
+        </div>
+    </mat-tab>
+</mat-tab-group>
+<ng-template #template>
+
+    <div class="modal-body text-center">
+        <p>¿Estás seguro de borrar esta publicación? esta acción no se puede deshacer</p>
+        <button type="button" class="btn btn-danger cajaBut" (click)="confirm()">Si</button>
+        <button type="button" class="btn btn-primary cajaBut" (click)="decline()">No</button>
+    </div>
+
+</ng-template>

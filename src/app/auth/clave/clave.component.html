@@ -1,0 +1,41 @@
+
+<div class=" contenedor">
+  <div class="card-login sombreado">
+
+    <mat-card  class="">
+      <form (ngSubmit)=" ResetPass(f)"  #f="ngForm">
+
+
+    <h3 class="card-title text-center">
+      <span>Ingrese su correo electronico</span></h3>
+      <label   class="text-danger mensaje-error" *ngIf="mensaje" >Correo incorrecto intentelo de nuevo</label>
+    <div class="form-group">
+      <span *ngIf="f.submitted && f.controls['email'].errors"
+                          class="text-danger animated fadeIn">Correo no registrado o no existe</span>
+      <input
+        type="email"
+        name="email"
+        [class.is-invalid]="email.invalid && email.touched"
+        class="form-control"
+        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+        [(ngModel)]="usuario.email"
+        required
+      #email="ngModel">
+
+      <span *ngIf="email.invalid && email.touched "
+                          class="text-danger">El correo es obligatorio</span>
+    </div>
+    <div class="form-group text-center">
+      <button class="btn btn-primary  btn-block " type="submit">
+        Solicitar restablecimiento de la contraseña
+      </button>
+      </div>
+      <div class="form-group text-center">
+      <button class="btn btn-primary btn-block mt-2" (click)="regresar()" type="button">
+        Regresar al inicio
+      </button>
+      </div>
+      </form>
+    </mat-card >
+  </div>
+</div>

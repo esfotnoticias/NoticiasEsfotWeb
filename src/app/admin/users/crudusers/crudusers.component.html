@@ -1,0 +1,131 @@
+<ng-container *ngIf="valor">
+    <ng-container *ngIf="!user.usuarioVerificado">
+        <div class="denegadoHome">
+            <div class="alert alert-danger denegadoAlert" role="alert">
+                Su cuenta aún no esta verificada!
+            </div>
+            <img src="https://firebasestorage.googleapis.com/v0/b/noticias-esfot.appspot.com/o/default%2F.png?alt=media&token=b8ddcc27-d139-476e-bf40-7ee8094c277c" class="denegado" alt="">
+            <div class="w-100">
+                <button type="button" class="btn btn-danger w-100" [routerLink]="['./../../perfil', usuario.uid]">Click aquí para solicitar acceso</button>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="user.usuarioVerificado">
+        <mat-tab-group mat-align-tabs="center">
+            <mat-tab label="Crear Usuario">
+                <div class="caja">
+                    <mat-card>
+                        <form [formGroup]="forma" (ngSubmit)="register(forma)">
+                            <mat-error *ngIf="checked" class="text-center">Usuario ya existente no se puede registrar</mat-error>
+                            <mat-form-field appearance="outline" class="contorno">
+                                <mat-label>Nombres</mat-label>
+                                <input matInput type="text" placeholder="Ingrese su correo " [(ngModel)]="usuario.nombre" [errorStateMatcher]="matcher" formControlName="nombre" required>
+                                <mat-error *ngIf="forma.controls['nombre'].errors?.required">
+                                    {{errors.name}}
+                                </mat-error>
+                                <mat-error *ngIf="forma.controls['nombre'].errors?.pattern">
+                                    {{errors.solotexto}}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="contorno">
+                                <mat-label>Apellidos</mat-label>
+                                <input matInput type="text" placeholder="Ingrese su correo" [(ngModel)]="usuario.apellido" [errorStateMatcher]="matcher" formControlName="apellido" required>
+                                <mat-error *ngIf="forma.controls['apellido'].errors?.required">
+                                    {{errors.apellido}}
+                                </mat-error>
+                                <mat-error *ngIf="forma.controls['apellido'].errors?.pattern">
+                                    {{errors.solotexto}}
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="contorno">
+                                <mat-label>Correo Electronico</mat-label>
+                                <input matInput type="email" placeholder="Ingrese su correo" [(ngModel)]="usuario.email" [errorStateMatcher]="matcher" formControlName="email" required>
+                                <mat-hint class="text-danger" *ngIf="emailNoValido">Correo invalido</mat-hint>
+                                <mat-error *ngIf="forma.controls['email'].errors?.required">
+                                    {{errors.email}}
+                                </mat-error>
+                                <mat-error *ngIf="forma.controls['email'].errors?.pattern">
+                                    {{errors.emailmal}}
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="contorno-select">
+                                <mat-label>Genero</mat-label>
+                                <mat-select [(ngModel)]="usuario.genero" [errorStateMatcher]="matcher" formControlName="genero" required>
+                                    <mat-option value="masculino">Masculino</mat-option>
+                                    <mat-option value="femenino">Femenino</mat-option>
+                                    <mat-option value="otro">Otro</mat-option>
+
+                                </mat-select>
+                                <mat-error *ngIf="forma.controls['genero'].errors?.required">
+                                    {{errors.genero}}
+                                </mat-error>
+                            </mat-form-field>
+                            <mat-form-field appearance="outline" class="contorno-select">
+                                <mat-label>Fecha Nacimiento</mat-label>
+                                <input matInput [matDatepicker]="picker" [(ngModel)]="usuario.fechanacimiento" [errorStateMatcher]="matcher" formControlName="fechanacimiento" required>
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                                <mat-error *ngIf="forma.controls['fechanacimiento'].errors?.required">
+                                    {{errors.fecnac}}
+                                </mat-error>
+                            </mat-form-field>
+                            <div>
+                                <mat-label class="contorno-radio-warn" *ngIf="rolNoValido">Seleccione el tipo de usuario:</mat-label>
+                                <mat-label class="contorno-radio" *ngIf="!rolNoValido">Seleccione el tipo de usuario:</mat-label>
+                                <mat-radio-group aria-label="Select an option" color="primary" class="contorno-radio" [(ngModel)]="usuario.rol" formControlName="rol" required>
+                                    <mat-radio-button value="estudiante" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">Estudiante</mat-radio-button>
+                                    <mat-radio-button value="docente" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">Docente</mat-radio-button>
+                                    <mat-radio-button value="secretaria" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">Secretaria</mat-radio-button>
+                                    <mat-radio-button value="aeesfot" [ngClass]="{'radio': !rolNoValido, 'radio-warn': rolNoValido}">P. Esfot</mat-radio-button>
+
+                                </mat-radio-group>
+                            </div>
+                            <div class="section">
+                                <mat-label required>Verificar Usuario:</mat-label>
+                                <mat-checkbox class="verificar" [(ngModel)]="usuario.usuarioVerificado" formControlName="usuarioVerificado">
+                                    <mat-label *ngIf="usuario.usuarioVerificado==true">Verificado</mat-label>
+                                    <mat-label *ngIf="usuario.usuarioVerificado==false"> No Verificado</mat-label>
+                                </mat-checkbox>
+                            </div>
+
+                            <mat-form-field appearance="outline" class="contorno">
+                                <mat-label>Contraseña</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Ingrese su contraseña" [(ngModel)]="usuario.password" [errorStateMatcher]="matcher" formControlName="password" required>
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                                <mat-error *ngIf="forma.controls['password'].errors?.pattern">
+                                    {{errors.passwordmal}}
+                                </mat-error>
+                                <mat-error *ngIf="forma.controls['password'].errors?.required">
+                                    {{errors.password}}
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="contorno">
+                                <mat-label>Contraseña</mat-label>
+                                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Ingrese su contraseña" [(ngModel)]="usuario.password1" [errorStateMatcher]="matcher" formControlName="password1" required>
+                                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+                                <mat-error *ngIf="forma.controls['password1'].errors?.noEsIgual">
+                                    {{errors.password2}}
+                                </mat-error>
+                                <mat-error *ngIf="forma.controls['password1'].errors?.required">
+                                    {{errors.password3}}
+                                </mat-error>
+                            </mat-form-field>
+
+                            <br>
+                            <mat-card-actions class="text-center">
+                                <button mat-raised-button color="primary" name="button" type="submit">Crear</button>
+                            </mat-card-actions>
+                        </form>
+                    </mat-card>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </ng-container>
+</ng-container>

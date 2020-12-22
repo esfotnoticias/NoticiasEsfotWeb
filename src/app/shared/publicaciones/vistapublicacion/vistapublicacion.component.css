@@ -1,0 +1,62 @@
+.vista {
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.publication {
+    width: 100%;
+    height: 93%;
+}
+
+.imagenes {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.imagen {
+    height: 400px;
+    width: 275px;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    border: 4px inset rgba(28, 110, 164, 0.89);
+    border-radius: 5px;
+    margin-top: 15px;
+}
+
+.documentos {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.documento {
+    height: 500px;
+    width: 400px;
+    margin-left: 5px;
+    margin-bottom: 10px;
+}
+
+.videos {
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.centradoButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.imgDeft {
+    width: 100%;
+    height: 400px;
+    margin-top: 15px;
+}

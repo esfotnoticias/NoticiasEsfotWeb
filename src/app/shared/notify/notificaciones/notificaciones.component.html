@@ -1,0 +1,20 @@
+<div>
+    <ng-container *ngIf="valor">
+        <ng-container *ngIf="existe">
+            <div class="centrado">
+                <img src="/assets/notificacion.png" width="250px" height="74px" alt="">
+            </div>
+        </ng-container>
+        <ng-container *ngIf="!existe">
+            <cdk-virtual-scroll-viewport itemSize="19" [ngClass]="{ 
+                'scroll' :valorClass  === '1',
+                'scroll2':valorClass === '2',
+                'scroll3':valorClass === '3',
+                'scroll4':valorClass === '4',
+                'scroll5':valorClass === '5',
+                'scroll6':valorClass ===  'max'}">
+                <app-notificacion [notificacion]="not" [user]="user" *cdkVirtualFor="let not of notis, let i=index"></app-notificacion>
+            </cdk-virtual-scroll-viewport>
+        </ng-container>
+    </ng-container>
+</div>

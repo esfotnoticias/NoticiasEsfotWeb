@@ -1,0 +1,20 @@
+table {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 12px;
+    width: 100%;
+}
+
+.cajaBut {
+    margin-left: 5px;
+}
+
+.registro {
+    font-size: 11px !important;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+}

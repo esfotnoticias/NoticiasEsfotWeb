@@ -1,0 +1,299 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.contenedor {
+    margin: 0;
+    padding: 0;
+    background-image: url('/assets/esfotpanoramica.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    display: -webkit-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+}
+
+.box {
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+.login {
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 8px;
+    margin-right: 8px;
+    -webkit-box-shadow: 0px 0px 21px 15px #002dff !important;
+    -moz-box-shadow: 0px 0px 21px 15px #002dff !important;
+    box-shadow: 0px 0px 21px 15px #002dff !important;
+}
+
+.loginform {
+    width: 100% !important;
+}
+
+.loginbtn1 {
+    width: 40% !important;
+}
+
+.loginbtn2 {
+    width: 50% !important;
+}
+
+.probar {
+    position: relative;
+    margin-left: 10px;
+    display: inline-block;
+}
+
+.espacio {
+    /*weight: 100%;*/
+    padding: 10px, 10px;
+    margin: 10px;
+}
+
+.sidenav {
+    top: 7.5%;
+    position: relative;
+    background: #2153DC !important;
+    /* margin-bottom: 3%;*/
+}
+
+.contenido {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 93%;
+    min-height: 93% !important;
+    z-index: 1;
+    /*
+  position: sticky;
+  display: flex;
+
+
+
+*/
+}
+
+.registro {
+    margin-top: 0px;
+}
+
+.menu {
+    top: 0;
+    margin: 0;
+    padding: 0;
+    height: 7%;
+    position: fixed;
+    z-index: 3 !important;
+}
+
+.sombreado {
+    margin-left: 8px;
+    margin-right: 8px;
+    box-shadow: 5px 5px 10px 10px #596DDA !important;
+}
+
+.mensaje-error {
+    padding: 0;
+    margin: 0;
+    margin-top: 8px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: center;
+}
+
+.main-container {
+    margin-top: 40px;
+}
+
+
+/* Drop Zone */
+
+.drop-zone {
+    border: dotted 3px lightgray;
+    opacity: 0.5;
+    color: #666;
+    text-align: center;
+    height: 150px;
+}
+
+.file-over {
+    border: dotted 3px dodgerblue;
+}
+
+.table {
+    margin-top: 5px;
+    font-size: 12px;
+}
+
+.text-green {
+    color: green
+}
+
+
+/*imagenes*/
+
+.inputbutton {
+    margin-top: 8px;
+    margin-right: 12px;
+    width: 66px;
+    height: 35px;
+    border-radius: 9%;
+    background: #596DDA;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 0px 2px 3px -1px rgba(0, 0, 0, 0.71);
+}
+
+.contupload {
+    border: 2px solid #EBEBEB;
+    border-radius: 5px;
+    padding-bottom: 15px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    /*height: 250px;*/
+}
+
+.parteSuperior {
+    margin: 5px;
+    display: flex;
+    align-items: baseline;
+    flex-flow: nowrap;
+}
+
+.buttonsmall {
+    display: flex;
+    font-size: 15px;
+    height: 20px;
+    align-items: center;
+}
+
+.contenidoCentral {
+    top: 7.5%;
+}
+
+.contenidoFinal {
+    top: 7.5%;
+}
+
+.denegado {
+    display: flex;
+    /*height: 50%;*/
+    width: 60%;
+    height: 350px;
+}
+
+.denegadoAlert {
+    display: flex;
+    height: 9%;
+    width: 100%;
+    margin: 0;
+    margin-top: 1%;
+}
+
+.denegadoHome {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+}
+
+.centradoGlobal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.animated {
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+.fast {
+    -webkit-animation-duration: 0.4s;
+    animation-duration: 0.4s;
+    -webkit-animation-fill-mode: both;
+    animation-fill-mode: both;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.fadeIn {
+    animation-name: fadeIn;
+}
+
+.noexiste {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imagenExiste {
+    width: 100%;
+    height: 500px;
+}
+
+@media only screen and (max-width: 767px) {
+    .contenedor {
+        margin: 0;
+        padding: 0;
+        background: rgb(40, 211, 224);
+        background: linear-gradient(63deg, rgba(40, 211, 224, 1) 0%, rgba(69, 82, 168, 1) 59%, rgba(42, 48, 157, 1) 100%);
+        display: -webkit-flex;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100vw;
+        height: 100vh;
+    }
+    .contenidoFinal {
+        display: none !important;
+    }
+    .denegado {
+        display: flex;
+        /*height: 50%;*/
+        width: 100%;
+        height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .sidenav {
+        top: 6.9%;
+        position: fixed;
+        z-index: 50;
+    }
+    .contenidoCentral {
+        top: 15%;
+    }
+}

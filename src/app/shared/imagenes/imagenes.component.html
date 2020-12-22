@@ -1,0 +1,70 @@
+<div class="col-md-12 contupload">
+<div class="row">
+
+<div class="col-md-6 col-lg-6">
+  <div class="row parteSuperior">
+    <label class="inputbutton"><i class="fas fa-image"></i>
+      <input  appNgImagen [files]="files" [num]='cantidad'id="ima" type="file" (change)="enviar()"  accept="image/x-png,image/jpeg, image/jpg" hidden (click)="onUpload()">
+  </label>
+      <h3>Seleccione imagenes</h3>
+  </div>
+
+    <div appNgImagen [files]="files" [num]='cantidad' (drop)="enviar()" (mouseOver)="estaSobreElemento = $event" [ngClass]="{ 'file-over': estaSobreElemento }" class="well drop-zone w-100">
+        <h4>Deje caer aquí los archivos</h4>
+        <img src="assets/drop-images.png">
+    </div>
+
+</div>
+<div class="col-md-6 col-lg-6">
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>File name</th>
+        <th>Size</th>
+        <!--<th>Progress</th>-->
+        <!--<th>URL</th>-->
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let file of files, let i=index">
+        <td>{{i}}</td>
+        <td>{{ file.name }}</td>
+        <td>{{ file.file.size / 1024 / 1024 | number: '.2-2' }}MB</td>
+        <!--<td *ngIf="file.uploadPercent | async as uploadPercent">
+          <div class="progress">
+            <div
+              class="progress-bar"
+              role="progessbar"
+              [ngStyle]="{ width: uploadPercent + '%' }"
+            >
+              {{ uploadPercent | number: "1.0-0" }} %
+            </div>
+          </div>
+        </td>
+        <!--<td *ngIf="file.downloadURL | async as downloadURL">
+          <a [href]="downloadURL" target="_blank">Download URL</a>
+        </td>-->
+        <td>
+        <button type="button" class="btn btn-danger buttonsmall" (click)="eliminar(i)"><i class="fas fa-minus-circle"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+  <!--<div class="container-buttons">
+<button (click)="files = []" class="btn btn-danger">Clean all</button>
+<button
+(click)="onUpload()"
+[disabled]="files.length === 0"
+class="btn btn-primary">
+Upload
+</button>
+</div>-->
+</div>
+
+</div>

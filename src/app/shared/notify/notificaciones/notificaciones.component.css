@@ -1,0 +1,35 @@
+.scroll {
+    width: 250px;
+    min-height: 95px;
+    /*max-height: 600px;*/
+}
+
+.scroll2 {
+    width: 250px;
+    min-height: 190px;
+    /*max-height: 600px;*/
+}
+
+.scroll3 {
+    width: 250px;
+    min-height: 285px;
+    /*max-height: 600px;*/
+}
+
+.scroll4 {
+    width: 250px;
+    min-height: 380px;
+    /*max-height: 600px;*/
+}
+
+.scroll5 {
+    width: 250px;
+    min-height: 475px;
+    /*max-height: 600px;*/
+}
+
+.scroll6 {
+    width: 250px;
+    min-height: 540px;
+    /*max-height: 600px;*/
+}

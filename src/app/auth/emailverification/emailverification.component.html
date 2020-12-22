@@ -1,0 +1,33 @@
+<div class="contenedor">
+    <div class="card mt-5 sombreado" *ngIf="user$ |async as user; else loading">
+        <div class="card-body">
+            <h3 class="card-title text-center">Gracias por Registrarte a ESFOT NOTICIAS!</h3>
+            <h4 class="text-center" *ngIf="error1">Se ha generado algún error intentelo más tarde</h4>
+            <div class="form-group mt-2">
+                <p class="text-center">
+                    Se ha enviado un correo de confirmación a <strong>{{user?.email}}</strong>
+                </p>
+                <p class="text-center">
+                    Por favor revisa tu bandeja de entrada se envio un correo con un link para verificar tu correo electronico
+                </p>
+                <p class="text-center">
+                    una vez verificado su correo electronico presione regresar al inicio para ingresar al sistema web.
+                </p>
+
+
+            </div>
+            <div class="form-group text-center mt-5">
+                <button class="btn btn-primary" (click)="Reenviar()" type="button">
+        Reenviar Correo
+      </button>
+                <button class="btn btn-primary butonregistro" [routerLink]="['/login']" routerLinkActive="router-link-active" (click)="regresar()" type="button">
+            Regresar al inicio
+          </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<ng-template #loading>
+    Loading....
+</ng-template>

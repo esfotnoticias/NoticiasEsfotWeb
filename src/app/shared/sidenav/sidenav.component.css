@@ -1,0 +1,138 @@
+.sidebar {
+    position: sticky;
+    top: 0;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    background: #2153DC;
+}
+
+.list-group li {
+    list-style-type: none;
+}
+
+.list-group li a {
+    text-decoration: none;
+}
+
+.probar {
+    color: #0372ff;
+    justify-content: flex-start;
+    height: 30px !important;
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+    margin-left: 0px;
+    margin-right: 5px;
+    margin-top: 8px;
+    margin-bottom: 5px;
+}
+
+.color {
+    background: #2153DC !important;
+}
+
+.link {
+    margin-top: 5px;
+    display: flex;
+    margin-left: 20px;
+    text-decoration: none;
+}
+
+mat-expansion-panel {
+    border-radius: 0px;
+    background: #D8E2FF;
+    border-top: 1px solid #2153DC;
+    border-left: 2px solid #2153DC;
+    border-right: 2px solid #2153DC;
+    border-bottom: 1px solid #2153DC;
+}
+
+.list-group-item {
+    background: #D8E2FF;
+    border-radius: 0px;
+    border-top: 1px solid #2153DC;
+    border-left: 2px solid #2153DC;
+    border-right: 2px solid #2153DC;
+    border-bottom: 1px solid #2153DC;
+}
+
+.veamos {
+    height: 200px;
+}
+
+.side {
+    /*position: fixed;*/
+    top: 9%;
+    z-index: 10;
+    display: flex;
+    position: sticky;
+    flex-flow: column nowrap;
+}
+
+.ocultar-div {
+    display: none;
+}
+
+.titulo {
+    display: flex !important;
+    flex-flow: nowrap !important;
+}
+
+.subtitulo {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-size: 14px;
+}
+
+
+/*---Media Querie---*/
+
+@media (max-width: 576px) {
+    .side {
+        display: none;
+    }
+    .todo {
+        position: relative;
+    }
+    .ocultar-div {
+        margin: 0;
+        padding: 0 !important;
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: center;
+        width: 100%;
+        /*height: 5%;*/
+        font-size: 12px;
+        overflow: auto;
+        position: sticky;
+        /*top: -1em;*/
+    }
+    .list-group-horizontal {
+        display: flex;
+        flex-flow: row nowrap;
+        padding: 0;
+        margin: 0;
+    }
+    .list-group-item {
+        margin: 0!important;
+    }
+}
+
+@media only screen and (max-width: 1024px) {
+    .subtitulo {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        font-size: 13px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .subtitulo {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        font-size: 11px;
+    }
+}

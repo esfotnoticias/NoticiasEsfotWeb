@@ -1,0 +1,50 @@
+<div class="contenedor">
+    <mat-card class="login">
+        <div class="centranImagen">
+            <img src="assets/buho.png" class="imagen" alt="">
+        </div>
+        <form (ngSubmit)="login( f )" #f="ngForm">
+
+            <mat-card-title class="text-center">Iniciar Sesión</mat-card-title>
+            <label class="text-danger mensaje-error" *ngIf="mensaje">Correo o contraseña incorrecta intentelo de nuevo</label>
+            <label class="text-danger mensaje-error" *ngIf="errorUser">Usuario no registrado</label>
+            <label class="text-danger mensaje-error" *ngIf="errorRol">Este usuario no tiene acceso al sistema</label>
+            <mat-form-field appearance="outline" class="loginform">
+
+                <mat-label>Correo</mat-label>
+                <input matInput type="email" placeholder="Ingrese su correo" name="email" [(ngModel)]="usuario.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" #email="ngModel">
+                <mat-hint class="text-danger" *ngIf="email.invalid && email.touched">Correo no válido</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline" class="loginform">
+                <mat-label>Contraseña</mat-label>
+                <input matInput [type]="hide ? 'password' : 'text'" placeholder="Ingrese su contraseña" name="password" [(ngModel)]="usuario.password" #password="ngModel" required>
+                <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+
+                <mat-hint class="text-danger" *ngIf="password.invalid && password.touched">Contraseña requerida</mat-hint>
+                <mat-hint routerLink="/clave" align="end">Olvidaste tu constraseña?</mat-hint>
+
+            </mat-form-field>
+            <div>
+                <mat-card-actions class="text-center">
+                    <button mat-raised-button color="primary" name="button" type="submit" class="loginbtn1">Ingresar</button>
+                    <button mat-raised-button color="primary" routerLink="/registro" name="button" class="loginbtn2">Registrarse</button>
+                </mat-card-actions>
+            </div>
+            <!--      <mat-card-subtitle class="text-center">O ingrese mediante</mat-card-subtitle>
+            <div class="espacio text-center">
+                <div class="probar">
+                    <button mat-mini-fab color="primary" type="button" class=" .img-circle probar" (click)="loginFacebook()"><i class="fab fa-facebook-f"></i></button>
+                </div>
+                <div class="probar">
+                    <button mat-mini-fab color="warn" type="button" class="probar" (click)="loginGoogle()"><i class="fab fa-google"></i></button>
+                </div>
+            </div> -->
+
+        </form>
+    </mat-card>
+
+
+</div>

@@ -1,0 +1,33 @@
+.busqueda {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    margin-top: 10px;
+    justify-content: center;
+}
+
+.crear {
+    height: 45px;
+    font-size: 11px;
+}
+
+.fechas {
+    display: flex;
+    flex-flow: row nowrap;
+    width: 80%;
+}
+
+.tama {
+    font-size: 12px;
+}
+
+.titulo {
+    margin-top: 10px;
+    margin-bottom: 5px !important;
+}
+
+.centrar {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}

@@ -1,0 +1,17 @@
+.unirse {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.mat-form-field {
+    font-size: 12px;
+    width: 100%;
+}
+
+input {
+    width: 70%;
+}
+
+table {
+    width: 100%;
+}

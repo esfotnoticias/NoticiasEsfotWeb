@@ -1,0 +1,40 @@
+<div class="cale">
+
+    <div class="vistacale">
+        <mat-card class="calendario">
+            <mat-calendar class="calendarios" [dateClass]="dateClass()" [selected]="selectedDate" (selectedChange)="onSelect($event)">
+            </mat-calendar>
+        </mat-card>
+        <div class="contenedoraPadre">
+            <ng-container *ngIf="valor">
+                <ng-container *ngIf="mostrar">
+                    <cdk-virtual-scroll-viewport style="height: 350px" itemSize="90">
+                        <mat-card class="calendar" *cdkVirtualFor="let item of publicaciones, let i=index">
+                            <mat-card class="hoja">
+                                <mat-label>{{item.fechaInicioPost|fechas:'month'}}</mat-label>
+                                <mat-label>{{item.fechaInicioPost|fechas:'day'}}</mat-label>
+                                <!--<img class="imagencalendar" src="assets\calendar-icon.png" alt="">-->
+                            </mat-card>
+                            <div class="descipti">
+                                <mat-card-header>
+                                    <mat-card-title>{{item.tituloPost}}</mat-card-title>
+                                    <mat-card-subtitle></mat-card-subtitle>
+                                </mat-card-header>
+                                <mat-card-actions>
+                                    <button mat-button [routerLink]="['vistapublicacion',item.idPost]" type="button">Ver más...</button>
+                                </mat-card-actions>
+                            </div>
+                        </mat-card>
+                    </cdk-virtual-scroll-viewport>
+                </ng-container>
+                <ng-container *ngIf="!mostrar">
+                    <div class="centrado">
+                        <img src="/assets/eventos.png" width="200px" height="200px" alt="">
+                    </div>
+                </ng-container>
+
+            </ng-container>
+
+        </div>
+    </div>
+</div>
